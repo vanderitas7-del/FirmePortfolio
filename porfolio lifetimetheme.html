@@ -1,0 +1,1953 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eavan C. Firme | BSIT Student, Software Developer & Network Engineer</title>
+  <meta name="description" content="Personal IT Portfolio of Eavan C. Firme — 3rd Year BSIT Student at City College of Calamba, Aspiring Software Developer & Network Engineer." />
+
+  <!-- Zero-Flash Theme Initialization Script -->
+  <script>
+    (function () {
+      try {
+        const savedTheme = localStorage.getItem('eavan-portfolio-theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedTheme === 'light' || (!savedTheme && !prefersDark)) {
+          document.documentElement.classList.remove('dark');
+        } else {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+
+  <!-- Google Fonts: Cormorant Garamond, Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          animation: {
+            'spin-slow': 'spin 20s linear infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'float-delayed': 'float 6s ease-in-out 3s infinite',
+            'pulse-glow': 'pulseGlow 5s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-7px)' },
+            },
+            pulseGlow: {
+              '0%, 100%': { opacity: '0.5', transform: 'scale(1)' },
+              '50%': { opacity: '0.88', transform: 'scale(1.05)' },
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* ==========================================================================
+       BEN&BEN - LIFETIME (REIMAGINED) INSPIRED PALETTE
+       Deep Forest Emerald (#0b1911), Golden Hour Amber (#facc15),
+       Royal Cobalt Blue (#38bdf8 / #2563eb), and Warm Cream Ivory (#fefce8)
+       ========================================================================== */
+    :root {
+      --bg-primary: #f7f8f0;
+      --text-primary: #122419;
+      --grid-emerald: rgba(22, 101, 52, 0.055);
+      --grid-gold: rgba(202, 138, 4, 0.055);
+      --card-bg: rgba(254, 252, 232, 0.88);
+      --card-border: rgba(22, 101, 52, 0.22);
+      --card-hover-border: rgba(202, 138, 4, 0.65);
+      --card-shadow: 0 16px 38px -12px rgba(11, 25, 17, 0.14);
+      --spotlight-color: rgba(250, 204, 21, 0.16);
+      --scrollbar-track: #eef2e3;
+      --scrollbar-thumb: #9fb8a6;
+    }
+
+    html.dark {
+      --bg-primary: #0b1911;
+      --text-primary: #fefce8;
+      --grid-emerald: rgba(52, 211, 153, 0.045);
+      --grid-gold: rgba(250, 204, 21, 0.045);
+      --card-bg: rgba(18, 31, 23, 0.86);
+      --card-border: rgba(250, 204, 21, 0.22);
+      --card-hover-border: rgba(250, 204, 21, 0.55);
+      --card-shadow: 0 20px 44px -12px rgba(37, 99, 235, 0.24);
+      --spotlight-color: rgba(250, 204, 21, 0.14);
+      --scrollbar-track: #0b1911;
+      --scrollbar-thumb: #1f442e;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    /* Subtle Lyric-Sheet Grid Overlay */
+    .bg-acoustic-grid {
+      background-image:
+        linear-gradient(to right, var(--grid-emerald) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-gold) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    /* Warm Forest-Emerald & Golden Glassmorphism Card */
+    .glass-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      position: relative;
+      transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+                  border-color 0.3s ease,
+                  box-shadow 0.3s ease,
+                  background-color 0.4s ease;
+    }
+
+    .glass-card:hover {
+      border-color: var(--card-hover-border);
+      box-shadow: var(--card-shadow);
+    }
+
+    /* Golden-Sunbeam Radial Cursor Spotlight */
+    .spotlight-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(
+        480px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        var(--spotlight-color),
+        rgba(59, 130, 246, 0.08) 45%,
+        transparent 75%
+      );
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .spotlight-card:hover::before {
+      opacity: 1;
+    }
+
+    /* Golden-Yellow, Emerald & Cobalt Gradient Text */
+    .text-gradient {
+      background: linear-gradient(135deg, #15803d 0%, #ca8a04 52%, #2563eb 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    html.dark .text-gradient {
+      background: linear-gradient(135deg, #fef08a 0%, #facc15 50%, #60a5fa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Animated Shimmer Hero Name */
+    .name-color-shift {
+      background: linear-gradient(
+        115deg,
+        #14532d 0%,
+        #166534 22%,
+        #ca8a04 46%,
+        #1d4ed8 70%,
+        #15803d 88%,
+        #14532d 100%
+      );
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: heroNameShift 7s ease-in-out infinite;
+      filter: drop-shadow(0 2px 14px rgba(234, 179, 8, 0.16));
+    }
+
+    html.dark .name-color-shift {
+      background: linear-gradient(
+        115deg,
+        #fefce8 0%,
+        #facc15 24%,
+        #86efac 48%,
+        #60a5fa 72%,
+        #fde047 88%,
+        #fefce8 100%
+      );
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 22px rgba(250, 204, 21, 0.32));
+    }
+
+    @keyframes heroNameShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Distinct Separated Pill Tabs (Never Merge Together) */
+    .nav-pill-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 0.95rem;
+      border-radius: 0.75rem;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      border: 1px solid rgba(22, 101, 52, 0.18);
+      background-color: rgba(254, 252, 232, 0.75);
+      color: #122419;
+      transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+      white-space: nowrap;
+    }
+
+    html.dark .nav-pill-tab {
+      border-color: rgba(250, 204, 21, 0.18);
+      background-color: rgba(19, 42, 29, 0.72);
+      color: rgba(254, 252, 232, 0.85);
+    }
+
+    .nav-pill-tab:hover {
+      border-color: rgba(202, 138, 4, 0.65);
+      background-color: rgba(250, 204, 21, 0.16);
+      transform: translateY(-1px);
+    }
+
+    html.dark .nav-pill-tab:hover {
+      border-color: rgba(250, 204, 21, 0.55);
+      background-color: rgba(250, 204, 21, 0.14);
+      color: #fef08a;
+    }
+
+    .nav-pill-tab.active {
+      border-color: #ca8a04;
+      background: linear-gradient(135deg, rgba(22, 101, 52, 0.16), rgba(250, 204, 21, 0.28));
+      color: #14532d;
+      font-weight: 700;
+      box-shadow: 0 4px 14px -4px rgba(202, 138, 4, 0.3);
+    }
+
+    html.dark .nav-pill-tab.active {
+      border-color: #facc15;
+      background: linear-gradient(135deg, rgba(250, 204, 21, 0.22), rgba(37, 99, 235, 0.22));
+      color: #fef08a;
+      font-weight: 700;
+      box-shadow: 0 4px 16px -4px rgba(250, 204, 21, 0.32);
+    }
+
+    /* Acoustic Equalizer Visual Bars (Visual Accent Only) */
+    .eq-bar {
+      display: inline-block;
+      width: 3px;
+      border-radius: 9999px;
+      animation: eqDance 1.8s ease-in-out infinite alternate;
+    }
+    .eq-bar:nth-child(1) { height: 8px; animation-delay: 0.1s; }
+    .eq-bar:nth-child(2) { height: 15px; animation-delay: 0.4s; }
+    .eq-bar:nth-child(3) { height: 11px; animation-delay: 0.25s; }
+    .eq-bar:nth-child(4) { height: 16px; animation-delay: 0.55s; }
+    .eq-bar:nth-child(5) { height: 9px; animation-delay: 0.15s; }
+
+    @keyframes eqDance {
+      0% { transform: scaleY(0.45); opacity: 0.65; }
+      100% { transform: scaleY(1.15); opacity: 1; }
+    }
+
+    /* ==========================================================================
+       SLOW-REVEAL POETIC LYRIC QUOTE CARD ("Lifetime (Reimagined)" — Ben&Ben)
+       ========================================================================== */
+    .lyric-quote-card {
+      animation: quoteBreathe 10s ease-in-out infinite;
+    }
+
+    @keyframes quoteBreathe {
+      0%, 100% {
+        box-shadow: 0 12px 32px -10px rgba(202, 138, 4, 0.16), inset 0 0 18px rgba(250, 204, 21, 0.04);
+      }
+      50% {
+        box-shadow: 0 18px 42px -10px rgba(250, 204, 21, 0.30), inset 0 0 28px rgba(250, 204, 21, 0.10);
+      }
+    }
+
+    .lyric-shimmer-sweep {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        115deg,
+        transparent 20%,
+        rgba(250, 204, 21, 0.10) 45%,
+        rgba(254, 240, 138, 0.18) 50%,
+        rgba(96, 165, 250, 0.08) 55%,
+        transparent 80%
+      );
+      transform: translateX(-120%);
+      animation: lyricCardSweep 12s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes lyricCardSweep {
+      0%, 25% { transform: translateX(-120%); }
+      65%, 100% { transform: translateX(120%); }
+    }
+
+    .quote-mote {
+      position: absolute;
+      border-radius: 9999px;
+      pointer-events: none;
+      animation: moteFloat 8.5s ease-in-out infinite;
+    }
+
+    @keyframes moteFloat {
+      0%, 100% { transform: translateY(0px) translateX(0px) scale(0.9); opacity: 0.35; }
+      50% { transform: translateY(-10px) translateX(4px) scale(1.25); opacity: 0.9; }
+    }
+
+    /* Slow & Deliberate Word-by-Word Reveal */
+    .lyric-word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(12px) scale(0.97);
+      filter: blur(4px);
+      transition: opacity 1.15s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 1.15s cubic-bezier(0.22, 1, 0.36, 1),
+                  filter 1.15s ease;
+    }
+
+    .lyric-word.revealed {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+
+    .lyric-highlight-gold {
+      background: linear-gradient(90deg, #b45309 0%, #eab308 35%, #fef08a 50%, #eab308 65%, #b45309 100%);
+      background-size: 220% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: lyricWordShimmer 6.8s linear infinite;
+    }
+
+    html.dark .lyric-highlight-gold {
+      background: linear-gradient(90deg, #fde047 0%, #fef9c3 35%, #ffffff 50%, #facc15 65%, #fde047 100%);
+      background-size: 220% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .lyric-highlight-blue {
+      background: linear-gradient(90deg, #1d4ed8 0%, #3b82f6 35%, #93c5fd 50%, #3b82f6 65%, #1d4ed8 100%);
+      background-size: 220% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: lyricWordShimmer 7.4s linear infinite;
+    }
+
+    html.dark .lyric-highlight-blue {
+      background: linear-gradient(90deg, #93c5fd 0%, #dbeafe 35%, #ffffff 50%, #60a5fa 65%, #93c5fd 100%);
+      background-size: 220% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    @keyframes lyricWordShimmer {
+      0% { background-position: 0% center; }
+      100% { background-position: 220% center; }
+    }
+
+    /* Blinking Cursor */
+    .type-cursor {
+      display: inline-block;
+      width: 2.5px;
+      height: 1.15em;
+      background-color: #ca8a04;
+      vertical-align: text-bottom;
+      margin-left: 3px;
+      animation: blinkCursor 0.85s steps(2, start) infinite;
+    }
+    html.dark .type-cursor {
+      background-color: #facc15;
+    }
+
+    @keyframes blinkCursor {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* Scroll-Reveal Staggered Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px) scale(0.985);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--scrollbar-track);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-thumb);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #eab308;
+    }
+
+    /* Ambient Radial Light-Streak & Bokeh Background */
+    .mv-vortex-stage {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .mv-radial-streaks {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 170vmax;
+      height: 170vmax;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: repeating-conic-gradient(
+        from 0deg,
+        rgba(250, 204, 21, 0.13) 0deg 10deg,
+        rgba(16, 185, 129, 0.08) 10deg 22deg,
+        rgba(37, 99, 235, 0.11) 22deg 34deg,
+        transparent 34deg 45deg
+      );
+      filter: blur(28px);
+      animation: mvVortexSpin 36s linear infinite;
+      opacity: 0.72;
+    }
+
+    html.dark .mv-radial-streaks {
+      background: repeating-conic-gradient(
+        from 0deg,
+        rgba(250, 204, 21, 0.16) 0deg 10deg,
+        rgba(16, 185, 129, 0.12) 10deg 22deg,
+        rgba(59, 130, 246, 0.15) 22deg 34deg,
+        transparent 34deg 45deg
+      );
+      opacity: 0.9;
+    }
+
+    .mv-vignette-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        circle at 50% 42%,
+        transparent 18%,
+        rgba(247, 248, 240, 0.55) 68%,
+        rgba(247, 248, 240, 0.92) 100%
+      );
+    }
+
+    html.dark .mv-vignette-overlay {
+      background: radial-gradient(
+        circle at 50% 42%,
+        rgba(11, 25, 17, 0.18) 18%,
+        rgba(11, 25, 17, 0.68) 68%,
+        rgba(7, 17, 11, 0.94) 100%
+      );
+    }
+
+    @keyframes mvVortexSpin {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    /* Animated Rotating Border Frame for Profile Picture ONLY */
+    .profile-animated-border {
+      background: conic-gradient(
+        from 0deg,
+        #ca8a04,
+        #facc15,
+        #16a34a,
+        #2563eb,
+        #facc15,
+        #ca8a04
+      );
+      animation: spinBorder 8s linear infinite;
+    }
+
+    html.dark .profile-animated-border {
+      background: conic-gradient(
+        from 0deg,
+        #facc15,
+        #fef08a,
+        #34d399,
+        #60a5fa,
+        #facc15
+      );
+    }
+
+    @keyframes spinBorder {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body class="font-sans antialiased bg-acoustic-grid selection:bg-yellow-400/30 selection:text-emerald-950 dark:selection:text-yellow-200">
+
+  <!-- Top Scroll Progress Indicator -->
+  <div id="scroll-progress" class="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-emerald-400 via-yellow-400 to-blue-500 z-50 transition-all duration-75" style="width: 0%;"></div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- Ambient Golden-Hour & Bokeh Vortex Background -->
+  <div class="mv-vortex-stage" aria-hidden="true">
+    <div class="mv-radial-streaks"></div>
+    <div class="absolute -top-36 -left-36 w-[32rem] h-[32rem] bg-yellow-400/20 dark:bg-yellow-400/15 rounded-full blur-3xl animate-pulse-glow"></div>
+    <div class="absolute top-1/2 -right-36 w-[32rem] h-[32rem] bg-blue-500/20 dark:bg-blue-600/18 rounded-full blur-3xl animate-pulse-glow"></div>
+    <div class="absolute -bottom-36 left-1/3 w-[30rem] h-[30rem] bg-emerald-500/20 dark:bg-emerald-600/18 rounded-full blur-3xl animate-pulse-glow"></div>
+    <div class="mv-vignette-overlay"></div>
+  </div>
+
+  <!-- ==================== NAVIGATION BAR WITH SEPARATED PILL TABS ==================== -->
+  <header class="sticky top-0 z-40 w-full border-b border-emerald-900/15 dark:border-yellow-400/15 bg-[#f7f8f0]/90 dark:bg-[#0b1911]/90 backdrop-blur-md transition-colors duration-300">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 gap-3">
+        <!-- Brand Logo -->
+        <a href="#home" class="flex items-center gap-2.5 group shrink-0">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-600 via-yellow-500 to-blue-600 flex items-center justify-center text-[#fefce8] font-serif italic font-bold text-lg shadow-lg shadow-yellow-500/20 group-hover:scale-105 group-hover:rotate-3 transition">
+            EF
+          </div>
+          <span class="font-mono font-semibold text-emerald-950 dark:text-[#fefce8] tracking-tight text-sm sm:text-base">
+            eavan<span class="text-yellow-600 dark:text-yellow-400">.dev</span>
+          </span>
+        </a>
+
+        <!-- Desktop Separated Pill Tabs (Explicitly spaced with gap-2.5 so tabs never merge) -->
+        <nav aria-label="Primary Section Tabs" class="hidden md:flex items-center gap-2.5">
+          <a href="#about" class="nav-pill-tab active" data-section="about">
+            <span>About</span>
+          </a>
+          <a href="#skills" class="nav-pill-tab" data-section="skills">
+            <span>Skills</span>
+          </a>
+          <a href="#projects" class="nav-pill-tab" data-section="projects">
+            <span>Projects</span>
+          </a>
+          <a href="#certifications" class="nav-pill-tab" data-section="certifications">
+            <span>Certifications</span>
+          </a>
+          <a href="#contact" class="nav-pill-tab" data-section="contact">
+            <span>Contact</span>
+          </a>
+        </nav>
+
+        <!-- Desktop Action Buttons + Theme Toggle -->
+        <div class="hidden md:flex items-center gap-2.5 shrink-0">
+          <!-- Light / Dark Mode Toggle Button -->
+          <button type="button" id="theme-toggle-desktop" aria-label="Toggle Light or Dark Theme"
+                  class="theme-toggle-btn inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-emerald-100/80 dark:bg-[#132a1d] text-emerald-900 dark:text-yellow-300 border border-emerald-700/25 dark:border-yellow-400/30 hover:border-yellow-500 dark:hover:border-yellow-400 transition shadow-sm text-xs font-mono"
+                  title="Switch Light / Dark Mode">
+            <!-- Sun Icon (shown in Dark Mode) -->
+            <svg class="hidden dark:block w-4 h-4 text-yellow-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+            </svg>
+            <!-- Moon Icon (shown in Light Mode) -->
+            <svg class="block dark:hidden w-4 h-4 text-emerald-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+            </svg>
+            <span class="hidden lg:inline dark:hidden">Light</span>
+            <span class="hidden lg:dark:inline">Dark</span>
+          </button>
+
+          <a href="https://canva.link/d8l3s49bcy1pu67" target="_blank" rel="noopener noreferrer"
+             class="px-3.5 py-2 rounded-xl text-xs font-mono font-medium text-emerald-900 dark:text-yellow-200 border border-emerald-700/35 dark:border-yellow-400/35 hover:bg-yellow-400/15 transition flex items-center gap-1.5">
+            <span>Resume</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+
+        <!-- Mobile Right Controls (Theme Toggle + Menu Button) -->
+        <div class="flex md:hidden items-center gap-2">
+          <button type="button" id="theme-toggle-mobile" aria-label="Toggle Light or Dark Theme"
+                  class="theme-toggle-btn p-2.5 rounded-xl bg-emerald-100/80 dark:bg-[#132a1d] text-emerald-900 dark:text-yellow-300 border border-emerald-700/25 dark:border-yellow-400/25 transition">
+            <svg class="hidden dark:block w-5 h-5 text-yellow-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+            </svg>
+            <svg class="block dark:hidden w-5 h-5 text-emerald-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+            </svg>
+          </button>
+
+          <button id="mobile-menu-btn" aria-label="Toggle Menu"
+                  class="p-2.5 rounded-xl text-emerald-950 dark:text-[#fefce8] border border-emerald-900/15 dark:border-yellow-400/20 hover:bg-yellow-400/15 transition">
+            <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+            <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Scrollable Separated Pill Tab Strip (Quick Access on Phones & Tablets) -->
+      <div class="flex md:hidden items-center gap-2 overflow-x-auto pb-2.5 pt-0.5 no-scrollbar">
+        <a href="#about" class="nav-pill-tab active text-xs py-1.5 px-3" data-section="about">About</a>
+        <a href="#skills" class="nav-pill-tab text-xs py-1.5 px-3" data-section="skills">Skills</a>
+        <a href="#projects" class="nav-pill-tab text-xs py-1.5 px-3" data-section="projects">Projects</a>
+        <a href="#certifications" class="nav-pill-tab text-xs py-1.5 px-3" data-section="certifications">Certifications</a>
+        <a href="#contact" class="nav-pill-tab text-xs py-1.5 px-3" data-section="contact">Contact</a>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-emerald-900/15 dark:border-yellow-400/15 bg-[#f7f8f0]/95 dark:bg-[#0b1911]/95 px-4 pt-3 pb-5 space-y-2.5">
+      <a href="#about" class="mobile-nav-link block px-3.5 py-2.5 rounded-xl border border-emerald-900/15 dark:border-yellow-400/20 text-emerald-950 dark:text-[#fefce8]/90 hover:bg-yellow-400/15 font-medium">About</a>
+      <a href="#skills" class="mobile-nav-link block px-3.5 py-2.5 rounded-xl border border-emerald-900/15 dark:border-yellow-400/20 text-emerald-950 dark:text-[#fefce8]/90 hover:bg-yellow-400/15 font-medium">Skills</a>
+      <a href="#projects" class="mobile-nav-link block px-3.5 py-2.5 rounded-xl border border-emerald-900/15 dark:border-yellow-400/20 text-emerald-950 dark:text-[#fefce8]/90 hover:bg-yellow-400/15 font-medium">Projects</a>
+      <a href="#certifications" class="mobile-nav-link block px-3.5 py-2.5 rounded-xl border border-emerald-900/15 dark:border-yellow-400/20 text-emerald-950 dark:text-[#fefce8]/90 hover:bg-yellow-400/15 font-medium">Certifications</a>
+      <a href="#contact" class="mobile-nav-link block px-3.5 py-2.5 rounded-xl border border-emerald-900/15 dark:border-yellow-400/20 text-emerald-950 dark:text-[#fefce8]/90 hover:bg-yellow-400/15 font-medium">Contact</a>
+      <div class="pt-2 flex flex-col sm:flex-row gap-2.5">
+        <a href="https://canva.link/d8l3s49bcy1pu67" target="_blank" rel="noopener noreferrer"
+           class="w-full text-center px-4 py-2.5 rounded-xl text-sm font-mono font-medium text-emerald-900 dark:text-yellow-200 border border-emerald-700/40 dark:border-yellow-400/40 hover:bg-yellow-400/15">
+          View Resume ↗
+        </a>
+        <a href="#contact"
+           class="mobile-nav-link w-full text-center px-4 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-emerald-600 via-yellow-500 to-blue-600 text-white">
+          Hire / Connect
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="relative z-10">
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section id="home" class="relative overflow-hidden pt-10 pb-18 sm:pt-16 sm:pb-24">
+      <canvas id="network-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
+
+      <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pointer-events-none">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+          
+          <!-- Left Column: Intro, Dynamic Typewriter & Slow-Reveal Quote Card -->
+          <div class="lg:col-span-7 space-y-6 text-center lg:text-left pointer-events-auto">
+            <!-- Status & Location Pills -->
+            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2.5">
+              <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono bg-yellow-400/20 text-emerald-950 dark:text-yellow-200 border border-yellow-500/40">
+                <span class="w-2 h-2 rounded-full bg-yellow-400 animate-ping"></span>
+                Open to Internships &amp; Collaborations
+              </span>
+              <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono bg-[#fefce8]/90 dark:bg-[#132a1d]/90 text-emerald-950 dark:text-[#fefce8] border border-emerald-900/15 dark:border-yellow-400/25 shadow-sm">
+                <svg class="w-3.5 h-3.5 text-yellow-600 dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                City College of Calamba • BSIT
+              </span>
+            </div>
+
+            <!-- Main Headline -->
+            <div class="space-y-3">
+              <p class="font-mono text-sm sm:text-base text-emerald-700 dark:text-yellow-300 tracking-wide">
+                &gt; Hello, World! I am
+              </p>
+              <h1 class="font-serif italic text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight">
+                <span class="name-color-shift inline-block cursor-default select-none">Eavan C. Firme</span>
+              </h1>
+              <!-- Dynamic Typewriter Role Rotator -->
+              <div class="h-9 sm:h-10 flex items-center justify-center lg:justify-start">
+                <span class="font-mono text-base sm:text-xl font-semibold text-blue-700 dark:text-yellow-200">
+                  <span id="typewriter-role">3rd Year BSIT Student</span><span class="type-cursor"></span>
+                </span>
+              </div>
+            </div>
+
+            <!-- Tagline -->
+            <p class="text-emerald-950/85 dark:text-[#fefce8]/85 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0">
+              3rd Year Bachelor of Science in Information Technology student at City College of Calamba — aspiring Software Developer &amp; Network Engineer building dependable digital solutions.
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-1">
+              <a href="https://canva.link/d8l3s49bcy1pu67" target="_blank" rel="noopener noreferrer"
+                 class="w-full sm:w-auto px-6 py-3.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-emerald-600 via-yellow-500 to-blue-600 text-white hover:scale-[1.02] active:scale-[0.99] transition shadow-lg shadow-emerald-950/20 flex items-center justify-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <span>View Resume</span>
+              </a>
+              <a href="#projects"
+                 class="w-full sm:w-auto px-6 py-3.5 rounded-xl font-semibold text-sm text-emerald-950 dark:text-[#fefce8] bg-[#fefce8]/90 dark:bg-[#132a1d]/90 border border-emerald-900/25 dark:border-yellow-400/35 hover:border-yellow-500 dark:hover:border-yellow-300 hover:text-yellow-700 dark:hover:text-yellow-200 transition flex items-center justify-center gap-2 shadow-sm">
+                <span>Explore Projects</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </a>
+            </div>
+
+            <!-- Inspired by Ben&Ben • Lifetime (Reimagined) Slow-Reveal Quote Card (Visual Only, No Audio Player) -->
+            <blockquote id="lifetime-quote-card" class="lyric-quote-card glass-card rounded-2xl p-5 sm:p-6 border border-yellow-500/40 text-center max-w-2xl mx-auto lg:mx-0 relative overflow-hidden group">
+              <div class="lyric-shimmer-sweep" aria-hidden="true"></div>
+
+              <!-- Floating Golden Dust Motes -->
+              <span class="quote-mote w-1.5 h-1.5 bg-yellow-400/70 top-4 right-12" style="animation-delay: 0.4s;" aria-hidden="true"></span>
+              <span class="quote-mote w-2 h-2 bg-amber-300/50 bottom-4 left-10" style="animation-delay: 1.8s;" aria-hidden="true"></span>
+              <span class="quote-mote w-1 h-1 bg-blue-400/60 top-1/2 right-6" style="animation-delay: 2.9s;" aria-hidden="true"></span>
+
+              <!-- Top Tag & Replay Quote Button -->
+              <div class="relative z-10 flex flex-wrap items-center justify-between gap-2 mb-3.5">
+                <span class="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-wider text-emerald-800 dark:text-yellow-300">
+                  <svg class="w-3.5 h-3.5 text-yellow-500 animate-pulse" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                  Inspired by Ben&amp;Ben • Lifetime (Reimagined)
+                </span>
+
+                <div class="flex items-center gap-3">
+                  <span class="flex items-end gap-1 h-4" aria-hidden="true">
+                    <span class="eq-bar bg-emerald-400"></span>
+                    <span class="eq-bar bg-yellow-400"></span>
+                    <span class="eq-bar bg-blue-400"></span>
+                    <span class="eq-bar bg-yellow-300"></span>
+                    <span class="eq-bar bg-emerald-300"></span>
+                  </span>
+
+                  <button id="replay-lyric-btn" type="button" title="Replay slow quote animation"
+                          class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-mono bg-yellow-400/15 hover:bg-yellow-400/30 text-emerald-950 dark:text-yellow-200 border border-yellow-500/35 transition active:scale-95">
+                    <svg id="replay-lyric-icon" class="w-3 h-3 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                    </svg>
+                    <span>Replay Quote</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Staggered Slow-Reveal Lyric Lines -->
+              <div id="animated-lyric-container" class="relative z-10 font-sans text-lg sm:text-xl font-medium text-emerald-950 dark:text-[#fefce8] leading-relaxed tracking-tight space-y-1">
+                <p>
+                  <span class="lyric-word">“Is</span>
+                  <span class="lyric-word">it</span>
+                  <span class="lyric-word">even</span>
+                  <span class="lyric-word">worth</span>
+                  <span class="lyric-word">it</span>
+                  <span class="lyric-word">to</span>
+                  <span class="lyric-word font-serif italic font-bold text-2xl sm:text-[26px] lyric-highlight-gold">reminisce</span><span class="lyric-word">?</span>
+                </p>
+                <p>
+                  <span class="lyric-word">How</span>
+                  <span class="lyric-word">do</span>
+                  <span class="lyric-word">you</span>
+                  <span class="lyric-word font-serif italic font-bold text-2xl sm:text-[26px] lyric-highlight-gold">grieve</span>
+                  <span class="lyric-word">for</span>
+                  <span class="lyric-word">a</span>
+                  <span class="lyric-word">love</span>
+                  <span class="lyric-word">that</span>
+                  <span class="lyric-word font-serif italic font-bold text-2xl sm:text-[26px] lyric-highlight-blue">did</span>
+                  <span class="lyric-word font-serif italic font-bold text-2xl sm:text-[26px] lyric-highlight-blue">not</span>
+                  <span class="lyric-word font-serif italic font-bold text-2xl sm:text-[26px] lyric-highlight-blue">even</span>
+                  <span class="lyric-word font-serif italic font-bold text-2xl sm:text-[26px] lyric-highlight-blue">exist</span><span class="lyric-word">?”</span>
+                </p>
+              </div>
+            </blockquote>
+          </div>
+
+          <!-- Right Column: Theme-Aware Profile Portrait Showcase (Light Golden-Hour vs Dark Evening Bokeh) -->
+          <div class="lg:col-span-5 flex justify-center pointer-events-auto">
+            <div class="relative w-full max-w-sm">
+              <!-- Floating Tech Badges Around Portrait -->
+              <div class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#fefce8]/95 dark:bg-[#132a1d]/95 border border-yellow-500/45 shadow-lg shadow-emerald-950/15 absolute -top-4 -left-4 z-20 animate-float">
+                <span class="w-2 h-2 rounded-full bg-yellow-400"></span>
+                <span class="font-mono text-xs text-emerald-950 dark:text-yellow-200 font-medium">Software Developer</span>
+              </div>
+          <!-- Right Column: Clean Profile Portrait Showcase (Zero Picture Effects) -->
+          <div class="lg:col-span-5 flex justify-center pointer-events-auto">
+            <div class="relative w-full max-w-sm">
+              <!-- Floating Tech Badges Around Portrait -->
+              <div class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#fefce8]/95 dark:bg-[#132a1d]/95 border border-yellow-500/45 shadow-lg shadow-emerald-950/15 absolute -top-4 -left-4 z-20 animate-float">
+                <span class="w-2 h-2 rounded-full bg-yellow-400"></span>
+                <span class="font-mono text-xs text-emerald-950 dark:text-yellow-200 font-medium">Software Developer</span>
+              </div>
+
+              <div class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#fefce8]/95 dark:bg-[#132a1d]/95 border border-blue-500/45 shadow-lg shadow-blue-950/15 absolute -bottom-3 -right-3 z-20 animate-float-delayed">
+                <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+                <span class="font-mono text-xs text-blue-900 dark:text-blue-200 font-medium">Network &amp; NC II CSS</span>
+              </div>
+
+              <!-- Main Glass Portrait Card -->
+              <div class="glass-card spotlight-card rounded-3xl p-6 sm:p-7 relative overflow-hidden">
+                <!-- Window Header with Theme Indicator -->
+                <div class="flex items-center justify-between pb-4 mb-5 border-b border-emerald-900/15 dark:border-yellow-400/15">
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-3 h-3 rounded-full bg-emerald-500/85"></span>
+                    <span class="w-3 h-3 rounded-full bg-yellow-400/90"></span>
+                    <span class="w-3 h-3 rounded-full bg-blue-500/85"></span>
+                  </div>
+                  <span class="font-mono text-[11px] text-amber-700 dark:text-yellow-300">
+                    <span class="inline dark:hidden">☀️ Light Mode Portrait</span>
+                    <span class="hidden dark:inline">🌙 Dark Mode Portrait</span>
+                  </span>
+                </div>
+
+                <!-- Circular Portrait Frame with Smooth Animated Conic-Gradient Border ONLY (Inner Photo Remains Clean) -->
+                <div class="relative mx-auto w-52 h-52 sm:w-56 sm:h-56 rounded-full p-[4px] overflow-hidden flex items-center justify-center">
+                  <!-- Rotating Gradient Ring Layer -->
+                  <div class="profile-animated-border absolute inset-[-10%] rounded-full" aria-hidden="true"></div>
+
+                  <!-- Clean Inner Circular Portrait Container -->
+                  <div class="relative z-10 w-full h-full rounded-full overflow-hidden bg-[#f7f8f0] dark:bg-[#0b1911] flex items-center justify-center">
+                    
+                    <!-- LIGHT MODE PORTRAIT -->
+                    <div id="portrait-light-wrap" class="block dark:hidden w-full h-full">
+                      <img
+                        id="eavan-photo-light"
+                        src="https://lh3.googleusercontent.com/d/1cleZSEO__BJIqIkamXD87ZQY4KAZ69cG=s1000"
+                        alt="Eavan C. Firme — Light Mode"
+                        class="w-full h-full object-cover object-top"
+                      />
+                    </div>
+
+                    <!-- DARK MODE PORTRAIT -->
+                    <div id="portrait-dark-wrap" class="hidden dark:block w-full h-full">
+                      <img
+                        id="eavan-photo-dark"
+                        src="https://lh3.googleusercontent.com/d/1cleZSEO__BJIqIkamXD87ZQY4KAZ69cG=s1000"
+                        alt="Eavan C. Firme — Dark Mode"
+                        class="w-full h-full object-cover object-top"
+                      />
+                    </div>
+
+                    <!-- Fallback Monogram if Drive Photo is Restricted -->
+                    <div id="avatar-fallback" class="hidden w-full h-full flex flex-col items-center justify-center bg-[#f7f8f0] dark:bg-[#0b1911] p-4 text-center">
+                      <span class="text-4xl font-extrabold font-serif italic text-gradient tracking-wider">EF</span>
+                      <span class="text-[11px] font-mono text-emerald-900 dark:text-yellow-200 mt-1">Eavan C. Firme</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Status Strip -->
+                <div class="mt-5 text-center space-y-2">
+                  <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 dark:bg-[#0d2015]/90 border border-emerald-800/15 dark:border-yellow-400/20 text-xs font-mono text-emerald-950 dark:text-[#fefce8]">
+                    <span class="w-2 h-2 rounded-full bg-yellow-400"></span>
+                    <span>BSIT 3rd Year • City College of Calamba</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ABOUT ME SECTION (CLEAN SEPARATED BLOCKS, NO CONTACT INFO) ==================== -->
+    <section id="about" class="py-16 sm:py-22 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-emerald-900/15 dark:border-yellow-400/15">
+      <div class="reveal space-y-2 mb-8">
+        <p class="font-mono text-xs sm:text-sm text-emerald-700 dark:text-yellow-400 uppercase tracking-widest">01. Introduction</p>
+        <h2 class="font-sans text-3xl sm:text-5xl font-bold text-emerald-950 dark:text-[#fefce8]">About <span class="font-serif italic text-yellow-700 dark:text-yellow-300">Me</span></h2>
+      </div>
+
+      <!-- Structured About Me Card matching the exact visual layout & spacing -->
+      <div class="reveal rounded-2xl border border-emerald-800/20 dark:border-amber-400/20 bg-[#fefce8]/90 dark:bg-[#121f17]/90 p-6 sm:p-9 shadow-xl backdrop-blur-md">
+        
+        <!-- Paragraph 1: Highlighted Academic Introduction -->
+        <p class="text-base sm:text-xl leading-relaxed text-emerald-950/90 dark:text-stone-100 mb-5">
+          I am <span class="font-bold text-amber-600 dark:text-amber-400">Eavan C. Firme</span>, a
+          <span class="font-bold text-emerald-600 dark:text-emerald-400">3rd Year College student</span> at
+          <span class="font-bold text-emerald-950 dark:text-white">City College of Calamba</span> pursuing a
+          <span class="font-bold text-sky-600 dark:text-sky-400">Bachelor of Science in Information Technology (BSIT)</span>.
+        </p>
+
+        <!-- Paragraph 2: Personal Strengths & Work Ethic (Separated by bottom padding & horizontal divider) -->
+        <p class="text-sm sm:text-base leading-relaxed text-emerald-900/85 dark:text-stone-300 pb-7 border-b border-emerald-900/15 dark:border-amber-400/15">
+          I am a very dependable individual, prepared to exert effort and dedicate time to acquire knowledge and experiences. Known for being kind and friendly, I am eager to contribute positively and build strong connections with future coworkers and peers. I am adaptable, capable of thriving across a variety of work fields, and committed to continuous learning.
+        </p>
+
+        <!-- Separated Skills & Capabilities Section -->
+        <div class="pt-7">
+          <h3 class="text-xs font-mono font-bold tracking-widest uppercase text-amber-700 dark:text-amber-400/90 mb-4">
+            Skills &amp; Capabilities
+          </h3>
+
+          <div class="flex flex-wrap gap-2.5 mb-7">
+            <span class="px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium border border-amber-500/35 bg-amber-400/15 text-amber-900 dark:text-amber-300 transition hover:scale-[1.02]">
+              MS. Office
+            </span>
+            <span class="px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium border border-emerald-500/35 bg-emerald-500/15 text-emerald-900 dark:text-emerald-300 transition hover:scale-[1.02]">
+              Adaptability
+            </span>
+            <span class="px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium border border-amber-500/35 bg-amber-400/15 text-amber-900 dark:text-amber-300 transition hover:scale-[1.02]">
+              Problem-Solving
+            </span>
+            <span class="px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium border border-emerald-500/35 bg-emerald-500/15 text-emerald-900 dark:text-emerald-300 transition hover:scale-[1.02]">
+              Time Management
+            </span>
+            <span class="px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium border border-amber-500/35 bg-amber-400/15 text-amber-900 dark:text-amber-300 transition hover:scale-[1.02]">
+              Good Communication
+            </span>
+            <span class="px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium border border-emerald-500/35 bg-emerald-500/15 text-emerald-900 dark:text-emerald-300 transition hover:scale-[1.02]">
+              Reliability and Flexibility
+            </span>
+            <span class="px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium border border-sky-500/35 bg-sky-500/15 text-sky-900 dark:text-sky-300 transition hover:scale-[1.02]">
+              Team Collaboration
+            </span>
+            <span class="px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium border border-amber-500/35 bg-amber-400/15 text-amber-900 dark:text-amber-300 transition hover:scale-[1.02]">
+              Willingness to Learn
+            </span>
+          </div>
+
+          <!-- Separated Languages Row -->
+          <div class="flex flex-wrap items-center gap-2.5">
+            <span class="text-xs font-mono font-bold tracking-widest uppercase text-amber-700 dark:text-amber-400/90 mr-1.5">
+              Languages
+            </span>
+            <span class="px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium border border-stone-400/40 dark:border-stone-500/40 bg-stone-200/70 dark:bg-stone-700/45 text-emerald-950 dark:text-stone-200">
+              English
+            </span>
+            <span class="px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium border border-stone-400/40 dark:border-stone-500/40 bg-stone-200/70 dark:bg-stone-700/45 text-emerald-950 dark:text-stone-200">
+              Tagalog
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SKILLS & TECHNICAL STACK SECTION ==================== -->
+    <section id="skills" class="py-16 sm:py-22 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-emerald-900/15 dark:border-yellow-400/15">
+      <div class="reveal flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+        <div class="space-y-2">
+          <p class="font-mono text-xs sm:text-sm text-emerald-700 dark:text-yellow-400 uppercase tracking-widest">02. Technical Stack</p>
+          <h2 class="font-sans text-3xl sm:text-5xl font-bold text-emerald-950 dark:text-[#fefce8]">Skills &amp; <span class="font-serif italic text-yellow-700 dark:text-yellow-300">Technologies</span></h2>
+        </div>
+
+        <!-- Separated Filter Tabs -->
+        <div id="skill-filters" class="flex flex-wrap gap-2.5">
+          <button data-filter="all" class="skill-filter-btn px-3.5 py-2 rounded-xl text-xs font-mono font-semibold bg-gradient-to-r from-emerald-600 via-yellow-500 to-blue-600 text-white shadow-md shadow-emerald-900/20 transition">
+            All
+          </button>
+          <button data-filter="programming" class="skill-filter-btn px-3.5 py-2 rounded-xl text-xs font-mono font-medium bg-[#fefce8]/90 dark:bg-[#132a1d] text-emerald-950 dark:text-[#fefce8] border border-emerald-900/20 dark:border-yellow-400/25 hover:border-yellow-400 transition">
+            Programming
+          </button>
+          <button data-filter="web-db" class="skill-filter-btn px-3.5 py-2 rounded-xl text-xs font-mono font-medium bg-[#fefce8]/90 dark:bg-[#132a1d] text-emerald-950 dark:text-[#fefce8] border border-emerald-900/20 dark:border-yellow-400/25 hover:border-yellow-400 transition">
+            Web &amp; Database
+          </button>
+          <button data-filter="design-tools" class="skill-filter-btn px-3.5 py-2 rounded-xl text-xs font-mono font-medium bg-[#fefce8]/90 dark:bg-[#132a1d] text-emerald-950 dark:text-[#fefce8] border border-emerald-900/20 dark:border-yellow-400/25 hover:border-yellow-400 transition">
+            Design &amp; Tools
+          </button>
+          <button data-filter="networking" class="skill-filter-btn px-3.5 py-2 rounded-xl text-xs font-mono font-medium bg-[#fefce8]/90 dark:bg-[#132a1d] text-emerald-950 dark:text-[#fefce8] border border-emerald-900/20 dark:border-yellow-400/25 hover:border-yellow-400 transition">
+            Networking &amp; Security
+          </button>
+        </div>
+      </div>
+
+      <div id="skills-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <!-- 1. Programming Languages -->
+        <div class="reveal skill-card glass-card spotlight-card rounded-2xl p-5 space-y-4" data-category="programming">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-yellow-400/20 text-yellow-700 dark:text-yellow-300 flex items-center justify-center font-mono font-bold">&lt;/&gt;</div>
+            <h3 class="font-bold text-emerald-950 dark:text-[#fefce8] text-base">Programming</h3>
+          </div>
+          <div class="w-full bg-emerald-900/15 dark:bg-yellow-400/15 h-1.5 rounded-full overflow-hidden">
+            <div class="bg-gradient-to-r from-emerald-500 to-yellow-400 h-full rounded-full" style="width: 88%;"></div>
+          </div>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-emerald-50 dark:bg-[#163122] text-emerald-950 dark:text-[#fefce8] border border-emerald-900/15 dark:border-yellow-400/20">C</span>
+            <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-emerald-50 dark:bg-[#163122] text-emerald-950 dark:text-[#fefce8] border border-emerald-900/15 dark:border-yellow-400/20">C++</span>
+            <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-emerald-50 dark:bg-[#163122] text-emerald-950 dark:text-[#fefce8] border border-emerald-900/15 dark:border-yellow-400/20">Java</span>
+            <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-emerald-50 dark:bg-[#163122] text-emerald-950 dark:text-[#fefce8] border border-emerald-900/15 dark:border-yellow-400/20">Python</span>
+            <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-emerald-50 dark:bg-[#163122] text-emerald-950 dark:text-[#fefce8] border border-emerald-900/15 dark:border-yellow-400/20">PHP</span>
+            <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-yellow-400/20 text-emerald-950 dark:text-yellow-300 border border-yellow-500/40">JavaScript</span>
+          </div>
+        </div>
+
+        <!-- 2. Web & Database -->
+        <div class="reveal skill-card glass-card spotlight-card rounded-2xl p-5 space-y-4" data-category="web-db">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-700 dark:text-blue-300 flex items-center justify-center">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </div>
+            <h3 class="font-bold text-emerald-950 dark:text-[#fefce8] text-base">Web &amp; Database</h3>
+          </div>
+          <div class="w-full bg-emerald-900/15 dark:bg-yellow-400/15 h-1.5 rounded-full overflow-hidden">
+            <div class="bg-gradient-to-r from-yellow-400 to-blue-500 h-full rounded-full" style="width: 90%;"></div>
+          </div>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-emerald-50 dark:bg-[#163122] text-emerald-950 dark:text-[#fefce8] border border-emerald-900/15 dark:border-yellow-400/20">HTML &amp; CSS</span>
+            <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-blue-500/20 text-blue-950 dark:text-blue-300 border border-blue-500/40">React &amp; Vite</span>
+            <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-emerald-500/20 text-emerald-950 dark:text-emerald-300 border border-emerald-500/40">Node.js</span>
+            <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-yellow-400/20 text-emerald-950 dark:text-yellow-300 border border-yellow-500/40">MySQL &amp; Firebase</span>
+          </div>
+        </div>
+
+        <!-- 3. Design & Build Tools -->
+        <div class="reveal skill-card glass-card spotlight-card rounded-2xl p-5 space-y-4" data-category="design-tools">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 flex items-center justify-center">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+            </div>
+            <h3 class="font-bold text-emerald-950 dark:text-[#fefce8] text-base">UI/UX &amp; Dev Tools</h3>
+          </div>
+          <div class="w-full bg-emerald-900/15 dark:bg-yellow-400/15 h-1.5 rounded-full overflow-hidden">
+            <div class="bg-gradient-to-r from-emerald-500 to-yellow-400 h-full rounded-full" style="width: 89%;"></div>
+          </div>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-emerald-50 dark:bg-[#163122] text-emerald-950 dark:text-[#fefce8] border border-emerald-900/15 dark:border-yellow-400/20">Figma &amp; Canva</span>
+            <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-emerald-50 dark:bg-[#163122] text-emerald-950 dark:text-[#fefce8] border border-emerald-900/15 dark:border-yellow-400/20">Git &amp; GitHub</span>
+            <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-yellow-400/20 text-emerald-950 dark:text-yellow-300 border border-yellow-500/40">Vercel &amp; VS Code</span>
+          </div>
+        </div>
+
+        <!-- 4. Networking & Cybersecurity -->
+        <div class="reveal skill-card glass-card spotlight-card rounded-2xl p-5 space-y-4" data-category="networking">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-700 dark:text-blue-300 flex items-center justify-center">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+            </div>
+            <h3 class="font-bold text-emerald-950 dark:text-[#fefce8] text-base">Networking &amp; Security</h3>
+          </div>
+          <div class="w-full bg-emerald-900/15 dark:bg-yellow-400/15 h-1.5 rounded-full overflow-hidden">
+            <div class="bg-gradient-to-r from-blue-500 to-emerald-400 h-full rounded-full" style="width: 90%;"></div>
+          </div>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-blue-500/20 text-blue-950 dark:text-blue-300 border border-blue-500/40">Cisco Packet Tracer</span>
+            <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-emerald-50 dark:bg-[#163122] text-emerald-950 dark:text-[#fefce8] border border-emerald-900/15 dark:border-yellow-400/20">TESDA NC II CSS</span>
+            <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-yellow-400/20 text-emerald-950 dark:text-yellow-300 border border-yellow-500/40">Cyber Threat Analysis</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PROJECTS SECTION ==================== -->
+    <section id="projects" class="py-16 sm:py-22 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-emerald-900/15 dark:border-yellow-400/15">
+      <div class="reveal space-y-2 mb-10">
+        <p class="font-mono text-xs sm:text-sm text-emerald-700 dark:text-yellow-400 uppercase tracking-widest">03. Featured Work</p>
+        <h2 class="font-sans text-3xl sm:text-5xl font-bold text-emerald-950 dark:text-[#fefce8]">Featured <span class="font-serif italic text-yellow-700 dark:text-yellow-300">Projects</span></h2>
+        <p class="text-emerald-900/80 dark:text-[#fefce8]/75 text-sm sm:text-base max-w-2xl">
+          Interactive web applications and cybersecurity/network engineering investigations. Click any project card to inspect full details.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+        <!-- PROJECT 1: BREWBOUND -->
+        <article class="reveal tilt-card glass-card spotlight-card rounded-2xl overflow-hidden flex flex-col justify-between group">
+          <div class="relative z-10">
+            <div class="relative h-52 bg-gradient-to-br from-[#0c2116] via-[#183e28] to-[#19335c] p-6 flex flex-col justify-between border-b border-emerald-900/20 dark:border-yellow-400/20 overflow-hidden">
+              <svg class="absolute right-0 bottom-0 w-56 h-56 text-yellow-300/15 pointer-events-none group-hover:scale-110 transition-transform duration-500" viewBox="0 0 200 200" fill="none">
+                <circle cx="140" cy="140" r="80" stroke="currentColor" stroke-width="2"/>
+                <circle cx="140" cy="140" r="50" stroke="currentColor" stroke-width="2" stroke-dasharray="6 6"/>
+                <path d="M20 160 L80 110 L130 135 L180 60" stroke="#FACC15" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="80" cy="110" r="5" fill="#FACC15"/>
+                <circle cx="130" cy="135" r="5" fill="#4ADE80"/>
+                <circle cx="180" cy="60" r="6" fill="#60A5FA"/>
+              </svg>
+
+              <div class="flex items-center justify-between">
+                <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-yellow-400/20 text-yellow-200 border border-yellow-300/45">
+                  Live Web App
+                </span>
+                <span class="font-mono text-xs text-[#fefce8]/80">Calamba City (Brgy. 1–7)</span>
+              </div>
+
+              <div>
+                <span class="font-mono text-xs text-yellow-300 block mb-1">brewbound-final.vercel.app</span>
+                <h3 class="font-serif italic text-3xl sm:text-4xl font-bold text-[#fefce8] tracking-tight group-hover:text-yellow-300 transition">
+                  Brewbound
+                </h3>
+              </div>
+            </div>
+
+            <div class="p-6 space-y-4">
+              <p class="text-emerald-950/85 dark:text-[#fefce8]/85 text-sm sm:text-base leading-relaxed">
+                A Calamba City coffee shop &amp; venue navigation web application covering Barangays 1–7, helping locals and visitors discover cafes, routes, and community directory details seamlessly.
+              </p>
+
+              <div class="text-xs text-emerald-900/75 dark:text-[#fefce8]/70 font-mono">
+                <strong class="text-emerald-950 dark:text-yellow-200">Team:</strong> John Rein M. Pamplona, Elvis Joshua L. Lucio, Eavan C. Firme
+              </div>
+
+              <div class="flex flex-wrap gap-1.5">
+                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-yellow-400/20 text-emerald-950 dark:text-yellow-200 border border-yellow-500/35">React &amp; Vite</span>
+                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-emerald-500/20 text-emerald-950 dark:text-emerald-200 border border-emerald-500/35">Node.js</span>
+                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-emerald-50 dark:bg-[#163122] text-emerald-950 dark:text-[#fefce8] border border-emerald-900/15 dark:border-yellow-400/20">Tailwind CSS</span>
+                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-emerald-50 dark:bg-[#163122] text-emerald-950 dark:text-[#fefce8] border border-emerald-900/15 dark:border-yellow-400/20">Vercel</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative z-10 px-6 pb-6 pt-2 flex items-center gap-3">
+            <a href="https://brewbound-final.vercel.app/" target="_blank" rel="noopener noreferrer"
+               class="flex-1 py-2.5 px-4 rounded-xl font-semibold text-xs sm:text-sm text-center bg-gradient-to-r from-emerald-600 via-yellow-500 to-blue-600 text-white hover:opacity-95 transition flex items-center justify-center gap-1.5 shadow-md shadow-emerald-950/20">
+              <span>Visit Live Site</span>
+              <span>↗</span>
+            </a>
+            <button type="button" data-project="brewbound"
+                    class="open-project-modal py-2.5 px-4 rounded-xl font-mono text-xs sm:text-sm text-emerald-900 dark:text-yellow-200 bg-emerald-50 dark:bg-[#152e20] border border-emerald-800/20 dark:border-yellow-400/30 hover:border-yellow-400 transition">
+              Details
+            </button>
+          </div>
+        </article>
+
+        <!-- PROJECT 2: KC7 CYBER RANSOMWARE INVESTIGATION -->
+        <article class="reveal tilt-card glass-card spotlight-card rounded-2xl overflow-hidden flex flex-col justify-between group">
+          <div class="relative z-10">
+            <div class="relative h-52 bg-gradient-to-br from-[#0b1911] via-[#132c3d] to-[#173a25] p-6 flex flex-col justify-between border-b border-emerald-900/20 dark:border-yellow-400/20 overflow-hidden">
+              <svg class="absolute right-3 bottom-2 w-56 h-44 text-blue-300/20 pointer-events-none group-hover:scale-110 transition-transform duration-500" viewBox="0 0 240 160" fill="none">
+                <path d="M120 20 L175 45 V90 C175 122 150 142 120 150 C90 142 65 122 65 90 V45 L120 20 Z" stroke="#60A5FA" stroke-width="2.2"/>
+                <circle cx="120" cy="85" r="18" stroke="#FACC15" stroke-width="2" stroke-dasharray="4 4"/>
+                <path d="M112 85 L118 91 L130 78" stroke="#4ADE80" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+
+              <div class="flex items-center justify-between">
+                <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-blue-500/25 text-blue-200 border border-blue-400/45">
+                  Cybersecurity &amp; Threat Hunting
+                </span>
+                <span class="font-mono text-xs text-[#fefce8]/80">Incident Response Lab</span>
+              </div>
+
+              <div>
+                <span class="font-mono text-xs text-blue-300 block mb-1">KQL • Log Forensics • Threat Intelligence</span>
+                <h3 class="font-serif italic text-2xl sm:text-3xl font-bold text-[#fefce8] tracking-tight group-hover:text-yellow-300 transition leading-snug">
+                  KC7 Cyber Ransomware Investigation
+                </h3>
+              </div>
+            </div>
+
+            <div class="p-6 space-y-4">
+              <p class="text-emerald-950/85 dark:text-[#fefce8]/85 text-sm sm:text-base leading-relaxed">
+                Conducted end-to-end threat hunting and digital forensics on a simulated enterprise ransomware intrusion—tracing initial phishing vectors, lateral movement, command-and-control (C2) indicators, and affected endpoints using Kusto Query Language (KQL).
+              </p>
+
+              <div class="flex flex-wrap gap-1.5">
+                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-blue-500/20 text-blue-950 dark:text-blue-200 border border-blue-500/35">KC7 Cyber</span>
+                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-yellow-400/20 text-emerald-950 dark:text-yellow-200 border border-yellow-500/35">KQL Log Analysis</span>
+                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-emerald-50 dark:bg-[#163122] text-emerald-950 dark:text-[#fefce8] border border-emerald-900/15 dark:border-yellow-400/20">IOC Tracking</span>
+                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-emerald-500/20 text-emerald-950 dark:text-emerald-200 border border-emerald-500/35">Incident Response</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative z-10 px-6 pb-6 pt-2">
+            <button type="button" data-project="kc7-cyber"
+                    class="open-project-modal w-full py-2.5 px-4 rounded-xl font-semibold text-xs sm:text-sm text-emerald-900 dark:text-yellow-200 bg-emerald-50 dark:bg-[#152e20] border border-yellow-500/40 hover:bg-yellow-400/15 transition flex items-center justify-center gap-2">
+              <span>Inspect Investigation Findings</span>
+              <span>→</span>
+            </button>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ==================== CERTIFICATIONS SECTION ==================== -->
+    <section id="certifications" class="py-16 sm:py-22 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-emerald-900/15 dark:border-yellow-400/15">
+      <div class="reveal flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+        <div class="space-y-2">
+          <p class="font-mono text-xs sm:text-sm text-emerald-700 dark:text-yellow-400 uppercase tracking-widest">04. Verified Credentials</p>
+          <h2 class="font-sans text-3xl sm:text-5xl font-bold text-emerald-950 dark:text-[#fefce8]">Certificates &amp; <span class="font-serif italic text-yellow-700 dark:text-yellow-300">Training</span></h2>
+        </div>
+
+        <!-- Separated Certificate Filter Tabs -->
+        <div id="cert-filters" class="flex flex-wrap gap-2.5">
+          <button data-cert-filter="all" class="cert-filter-btn px-3.5 py-2 rounded-xl text-xs font-mono font-semibold bg-gradient-to-r from-emerald-600 via-yellow-500 to-blue-600 text-white transition">
+            All (7)
+          </button>
+          <button data-cert-filter="tesda" class="cert-filter-btn px-3.5 py-2 rounded-xl text-xs font-mono font-medium bg-[#fefce8]/90 dark:bg-[#132a1d] text-emerald-950 dark:text-[#fefce8] border border-emerald-900/20 dark:border-yellow-400/25 hover:border-yellow-400 transition">
+            TESDA CSS NC II
+          </button>
+          <button data-cert-filter="cisco" class="cert-filter-btn px-3.5 py-2 rounded-xl text-xs font-mono font-medium bg-[#fefce8]/90 dark:bg-[#132a1d] text-emerald-950 dark:text-[#fefce8] border border-emerald-900/20 dark:border-yellow-400/25 hover:border-blue-400 transition">
+            Cisco Networking Academy
+          </button>
+          <button data-cert-filter="wadhwani" class="cert-filter-btn px-3.5 py-2 rounded-xl text-xs font-mono font-medium bg-[#fefce8]/90 dark:bg-[#132a1d] text-emerald-950 dark:text-[#fefce8] border border-emerald-900/20 dark:border-yellow-400/25 hover:border-emerald-400 transition">
+            Wadhwani Foundation
+          </button>
+        </div>
+      </div>
+
+      <div id="certs-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- 1. TESDA CSS NC II -->
+        <a href="https://drive.google.com/file/d/1tAQv8yHdp6RkOH40mr0bebZj6a5jT0Wv/view?usp=sharing" target="_blank" rel="noopener noreferrer"
+           data-cert-org="tesda"
+           class="reveal cert-card tilt-card glass-card spotlight-card rounded-2xl p-5 flex flex-col justify-between space-y-4 group">
+          <div class="relative z-10 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold bg-yellow-400/20 text-yellow-800 dark:text-yellow-300 border border-yellow-500/40">TESDA</span>
+              <span class="font-mono text-xs text-yellow-700 dark:text-yellow-300 group-hover:translate-x-0.5 transition">Verify ↗</span>
+            </div>
+            <h3 class="text-base font-bold text-emerald-950 dark:text-[#fefce8] group-hover:text-yellow-700 dark:group-hover:text-yellow-300 transition">
+              NC II: Computer System Servicing
+            </h3>
+            <p class="text-xs text-emerald-900/75 dark:text-[#fefce8]/70 leading-relaxed">
+              National Certificate II verifying competency in computer hardware assembly, networking setup, and system diagnostics.
+            </p>
+          </div>
+        </a>
+
+        <!-- 2. Cisco Networking Academy: Introduction to Cybersecurity -->
+        <a href="https://drive.google.com/file/d/1Fe6M6QMC8xfhSv1eL_l8I4qJcOOLj30_/view?usp=drive_link" target="_blank" rel="noopener noreferrer"
+           data-cert-org="cisco"
+           class="reveal cert-card tilt-card glass-card spotlight-card rounded-2xl p-5 flex flex-col justify-between space-y-4 group">
+          <div class="relative z-10 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold bg-blue-500/20 text-blue-800 dark:text-blue-300 border border-blue-500/40">Cisco Networking Academy</span>
+              <span class="font-mono text-xs text-blue-700 dark:text-blue-300 group-hover:translate-x-0.5 transition">Verify ↗</span>
+            </div>
+            <h3 class="text-base font-bold text-emerald-950 dark:text-[#fefce8] group-hover:text-blue-700 dark:group-hover:text-blue-300 transition">
+              Introduction to Cybersecurity
+            </h3>
+            <p class="text-xs text-emerald-900/75 dark:text-[#fefce8]/70 leading-relaxed">
+              Foundational training in online safety, network defense principles, threat detection, and data protection.
+            </p>
+          </div>
+        </a>
+
+        <!-- 3. Cisco Networking Academy: Build Your Resume with AI -->
+        <a href="https://drive.google.com/file/d/1dsZGKuWlr0U1es4gaHJdm1YGlfKlZC2i/view?usp=drive_link" target="_blank" rel="noopener noreferrer"
+           data-cert-org="cisco"
+           class="reveal cert-card tilt-card glass-card spotlight-card rounded-2xl p-5 flex flex-col justify-between space-y-4 group">
+          <div class="relative z-10 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold bg-blue-500/20 text-blue-800 dark:text-blue-300 border border-blue-500/40">Cisco Networking Academy</span>
+              <span class="font-mono text-xs text-blue-700 dark:text-blue-300 group-hover:translate-x-0.5 transition">Verify ↗</span>
+            </div>
+            <h3 class="text-base font-bold text-emerald-950 dark:text-[#fefce8] group-hover:text-blue-700 dark:group-hover:text-blue-300 transition">
+              Build Your Resume with AI
+            </h3>
+            <p class="text-xs text-emerald-900/75 dark:text-[#fefce8]/70 leading-relaxed">
+              Practical application of generative AI tools for professional career branding and technical documentation.
+            </p>
+          </div>
+        </a>
+
+        <!-- 4. Wadhwani: Self-management -->
+        <a href="https://web.certificate.wfglobal.org/en/certificate?certificateId=67265d5f8e2ca4db19d9155e" target="_blank" rel="noopener noreferrer"
+           data-cert-org="wadhwani"
+           class="reveal cert-card tilt-card glass-card spotlight-card rounded-2xl p-5 flex flex-col justify-between space-y-4 group">
+          <div class="relative z-10 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border border-emerald-500/40">Wadhwani Foundation</span>
+              <span class="font-mono text-xs text-emerald-700 dark:text-emerald-300 group-hover:translate-x-0.5 transition">ID ↗</span>
+            </div>
+            <h3 class="text-base font-bold text-emerald-950 dark:text-[#fefce8] group-hover:text-emerald-700 dark:group-hover:text-emerald-300 transition">
+              Self-Management
+            </h3>
+            <p class="text-xs text-emerald-900/75 dark:text-[#fefce8]/70 leading-relaxed">
+              Personal accountability, goal setting, productivity management, and workplace adaptability skills.
+            </p>
+          </div>
+        </a>
+
+        <!-- 5. Wadhwani: Interpersonal Skills -->
+        <a href="https://web.certificate.wfglobal.org/en/certificate?certificateId=6727325bb53d7dced827e6f8" target="_blank" rel="noopener noreferrer"
+           data-cert-org="wadhwani"
+           class="reveal cert-card tilt-card glass-card spotlight-card rounded-2xl p-5 flex flex-col justify-between space-y-4 group">
+          <div class="relative z-10 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border border-emerald-500/40">Wadhwani Foundation</span>
+              <span class="font-mono text-xs text-emerald-700 dark:text-emerald-300 group-hover:translate-x-0.5 transition">ID ↗</span>
+            </div>
+            <h3 class="text-base font-bold text-emerald-950 dark:text-[#fefce8] group-hover:text-emerald-700 dark:group-hover:text-emerald-300 transition">
+              Interpersonal Skills
+            </h3>
+            <p class="text-xs text-emerald-900/75 dark:text-[#fefce8]/70 leading-relaxed">
+              Collaborative teamwork, empathy, conflict resolution, and cross-functional communication.
+            </p>
+          </div>
+        </a>
+
+        <!-- 6. Wadhwani: Self-Presentation -->
+        <a href="https://web.certificate.wfglobal.org/en/certificate?certificateId=672609d848b3e54f704e3920" target="_blank" rel="noopener noreferrer"
+           data-cert-org="wadhwani"
+           class="reveal cert-card tilt-card glass-card spotlight-card rounded-2xl p-5 flex flex-col justify-between space-y-4 group">
+          <div class="relative z-10 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border border-emerald-500/40">Wadhwani Foundation</span>
+              <span class="font-mono text-xs text-emerald-700 dark:text-emerald-300 group-hover:translate-x-0.5 transition">ID ↗</span>
+            </div>
+            <h3 class="text-base font-bold text-emerald-950 dark:text-[#fefce8] group-hover:text-emerald-700 dark:group-hover:text-emerald-300 transition">
+              Self-Presentation
+            </h3>
+            <p class="text-xs text-emerald-900/75 dark:text-[#fefce8]/70 leading-relaxed">
+              Professional etiquette, confident delivery, and structured pitching of technical ideas.
+            </p>
+          </div>
+        </a>
+
+        <!-- 7. Wadhwani: Effective Speaking and Listening Skills -->
+        <a href="https://web.certificate.wfglobal.org/en/certificate?certificateId=6725f51548b3e54f704e12b6" target="_blank" rel="noopener noreferrer"
+           data-cert-org="wadhwani"
+           class="reveal cert-card tilt-card glass-card spotlight-card rounded-2xl p-5 flex flex-col justify-between space-y-4 group sm:col-span-2 lg:col-span-3">
+          <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="space-y-1.5">
+              <span class="inline-block px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border border-emerald-500/40">Wadhwani Foundation</span>
+              <h3 class="text-base font-bold text-emerald-950 dark:text-[#fefce8] group-hover:text-emerald-700 dark:group-hover:text-emerald-300 transition">
+                Effective Speaking and Listening Skills
+              </h3>
+              <p class="text-xs text-emerald-900/75 dark:text-[#fefce8]/70">
+                Active listening, clear articulation, and constructive communication in professional IT environments.
+              </p>
+            </div>
+            <span class="font-mono text-xs text-emerald-700 dark:text-emerald-300 shrink-0">Verify Certificate ID ↗</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ==================== CONTACT SECTION ==================== -->
+    <section id="contact" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-emerald-900/15 dark:border-yellow-400/15">
+      <div class="reveal space-y-2 mb-10">
+        <p class="font-mono text-xs sm:text-sm text-emerald-700 dark:text-yellow-400 uppercase tracking-widest">05. Get In Touch</p>
+        <h2 class="font-sans text-3xl sm:text-5xl font-bold text-emerald-950 dark:text-[#fefce8]">Contact <span class="font-serif italic text-yellow-700 dark:text-yellow-300">Me</span></h2>
+        <p class="text-emerald-900/80 dark:text-[#fefce8]/75 text-sm sm:text-base max-w-2xl">
+          Interested in working together, discussing software development or networking, or connecting on social media? Reach out anytime.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Left Column: One-Click Copy Contacts & Social Links -->
+        <div class="reveal lg:col-span-5 space-y-4">
+          <div class="glass-card rounded-2xl p-5 space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono text-emerald-700 dark:text-yellow-300">Email Address</span>
+              <button type="button" data-copy="vanderitas7@gmail.com"
+                      class="copy-btn px-2.5 py-1 rounded-lg text-xs font-mono bg-yellow-400/20 text-emerald-950 dark:text-yellow-200 border border-yellow-500/40 hover:bg-yellow-400/30 transition">
+                Copy
+              </button>
+            </div>
+            <a href="mailto:vanderitas7@gmail.com" class="block text-base sm:text-lg font-semibold text-emerald-950 dark:text-[#fefce8] hover:text-yellow-700 dark:hover:text-yellow-300 transition break-all">
+              vanderitas7@gmail.com
+            </a>
+          </div>
+
+          <div class="glass-card rounded-2xl p-5 space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono text-blue-700 dark:text-blue-300">Contact Number</span>
+              <button type="button" data-copy="09473124211"
+                      class="copy-btn px-2.5 py-1 rounded-lg text-xs font-mono bg-blue-500/20 text-blue-950 dark:text-blue-200 border border-blue-500/40 hover:bg-blue-500/30 transition">
+                Copy
+              </button>
+            </div>
+            <a href="tel:09473124211" class="block text-base sm:text-lg font-semibold text-emerald-950 dark:text-[#fefce8] hover:text-blue-700 dark:hover:text-blue-300 transition">
+              09473124211
+            </a>
+          </div>
+
+          <div class="glass-card rounded-2xl p-5 space-y-3">
+            <span class="text-xs font-mono text-emerald-800/75 dark:text-[#fefce8]/70 block">Social Media Profiles</span>
+            <div class="grid grid-cols-3 gap-2.5">
+              <a href="https://www.facebook.com/profile.php?viewas=100000686899395&id=61591532015067" target="_blank" rel="noopener noreferrer"
+                 class="py-3 px-3 rounded-xl bg-emerald-50/90 dark:bg-[#132a1d] border border-emerald-900/15 dark:border-yellow-400/20 hover:border-blue-500 hover:-translate-y-0.5 text-center text-xs font-semibold text-emerald-950 dark:text-[#fefce8] hover:text-blue-700 dark:hover:text-blue-300 transition">
+                Facebook
+              </a>
+              <a href="https://www.instagram.com/vande.ritas" target="_blank" rel="noopener noreferrer"
+                 class="py-3 px-3 rounded-xl bg-emerald-50/90 dark:bg-[#132a1d] border border-emerald-900/15 dark:border-yellow-400/20 hover:border-yellow-400 hover:-translate-y-0.5 text-center text-xs font-semibold text-emerald-950 dark:text-[#fefce8] hover:text-yellow-700 dark:hover:text-yellow-300 transition">
+                Instagram
+              </a>
+              <a href="https://tiktok.com/@worldofvander" target="_blank" rel="noopener noreferrer"
+                 class="py-3 px-3 rounded-xl bg-emerald-50/90 dark:bg-[#132a1d] border border-emerald-900/15 dark:border-yellow-400/20 hover:border-emerald-400 hover:-translate-y-0.5 text-center text-xs font-semibold text-emerald-950 dark:text-[#fefce8] hover:text-emerald-700 dark:hover:text-emerald-300 transition">
+                TikTok
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Contact Form -->
+        <div class="reveal lg:col-span-7 glass-card rounded-2xl p-6 sm:p-8">
+          <h3 class="font-sans text-2xl font-bold text-emerald-950 dark:text-[#fefce8] mb-1.5">Send a <span class="font-serif italic text-yellow-700 dark:text-yellow-300">Direct Message</span></h3>
+          <p class="text-xs sm:text-sm text-emerald-900/80 dark:text-[#fefce8]/75 mb-6">
+            Compose a message directly to <span class="font-mono text-emerald-800 dark:text-yellow-300">vanderitas7@gmail.com</span>.
+          </p>
+
+          <form id="contact-form" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="sender-name" class="block text-xs font-mono text-emerald-900 dark:text-[#fefce8]/90 mb-1.5">Your Name</label>
+                <input type="text" id="sender-name" required placeholder="Juan Dela Cruz"
+                       class="w-full px-4 py-3 rounded-xl bg-white/95 dark:bg-[#0e2116]/95 border border-emerald-900/20 dark:border-yellow-400/25 text-sm text-emerald-950 dark:text-[#fefce8] placeholder-emerald-900/40 dark:placeholder-[#fefce8]/35 focus:outline-none focus:border-yellow-500 dark:focus:border-yellow-400 transition" />
+              </div>
+              <div>
+                <label for="sender-email" class="block text-xs font-mono text-emerald-900 dark:text-[#fefce8]/90 mb-1.5">Your Email</label>
+                <input type="email" id="sender-email" required placeholder="juan@example.com"
+                       class="w-full px-4 py-3 rounded-xl bg-white/95 dark:bg-[#0e2116]/95 border border-emerald-900/20 dark:border-yellow-400/25 text-sm text-emerald-950 dark:text-[#fefce8] placeholder-emerald-900/40 dark:placeholder-[#fefce8]/35 focus:outline-none focus:border-yellow-500 dark:focus:border-yellow-400 transition" />
+              </div>
+            </div>
+
+            <div>
+              <label for="message-subject" class="block text-xs font-mono text-emerald-900 dark:text-[#fefce8]/90 mb-1.5">Subject</label>
+              <input type="text" id="message-subject" required placeholder="Project Inquiry / Collaboration"
+                     class="w-full px-4 py-3 rounded-xl bg-white/95 dark:bg-[#0e2116]/95 border border-emerald-900/20 dark:border-yellow-400/25 text-sm text-emerald-950 dark:text-[#fefce8] placeholder-emerald-900/40 dark:placeholder-[#fefce8]/35 focus:outline-none focus:border-yellow-500 dark:focus:border-yellow-400 transition" />
+            </div>
+
+            <div>
+              <label for="message-body" class="block text-xs font-mono text-emerald-900 dark:text-[#fefce8]/90 mb-1.5">Message</label>
+              <textarea id="message-body" rows="4" required placeholder="Hi Eavan, I checked out your portfolio..."
+                        class="w-full px-4 py-3 rounded-xl bg-white/95 dark:bg-[#0e2116]/95 border border-emerald-900/20 dark:border-yellow-400/25 text-sm text-emerald-950 dark:text-[#fefce8] placeholder-emerald-900/40 dark:placeholder-[#fefce8]/35 focus:outline-none focus:border-yellow-500 dark:focus:border-yellow-400 transition resize-none"></textarea>
+            </div>
+
+            <button id="contact-submit-btn" type="submit"
+                    class="w-full py-3.5 px-6 rounded-xl font-semibold text-sm bg-gradient-to-r from-emerald-600 via-yellow-500 to-blue-600 text-white hover:opacity-95 active:scale-[0.99] transition shadow-lg shadow-emerald-950/25 flex items-center justify-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              <span>Send Message</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="border-t border-emerald-900/15 dark:border-yellow-400/15 bg-[#f7f8f0]/90 dark:bg-[#08130d] py-8 px-4 sm:px-6 lg:px-8 relative z-10 transition-colors">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm text-emerald-900/75 dark:text-[#fefce8]/70">
+      <p>© 2026 <span class="text-emerald-950 dark:text-[#fefce8] font-semibold">Eavan C. Firme</span> • City College of Calamba</p>
+      <div class="flex items-center gap-4 font-mono text-xs">
+        <a href="mailto:vanderitas7@gmail.com" class="hover:text-yellow-600 dark:hover:text-yellow-300 transition">Email</a>
+        <a href="https://www.facebook.com/profile.php?viewas=100000686899395&id=61591532015067" target="_blank" rel="noopener noreferrer" class="hover:text-blue-600 dark:hover:text-blue-300 transition">Facebook</a>
+        <a href="https://www.instagram.com/vande.ritas" target="_blank" rel="noopener noreferrer" class="hover:text-yellow-600 dark:hover:text-yellow-300 transition">Instagram</a>
+        <a href="https://tiktok.com/@worldofvander" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-600 dark:hover:text-emerald-300 transition">TikTok</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== INTERACTIVE PROJECT DETAILS MODAL ==================== -->
+  <div id="project-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-[#08130d]/80 backdrop-blur-md">
+    <div id="project-modal-box" class="glass-card rounded-3xl max-w-xl w-full p-6 sm:p-8 border border-yellow-400/40 space-y-5 relative transform scale-95 opacity-0 transition-all duration-200">
+      <div class="flex items-center justify-between border-b border-emerald-900/15 dark:border-yellow-400/20 pb-3">
+        <span id="modal-category" class="font-mono text-xs text-emerald-700 dark:text-yellow-300 uppercase tracking-wider">PROJECT DETAILS</span>
+        <button id="close-project-modal" type="button" class="w-8 h-8 rounded-lg text-emerald-800 dark:text-[#fefce8]/70 hover:text-emerald-950 dark:hover:text-white hover:bg-yellow-400/20 flex items-center justify-center transition">
+          ✕
+        </button>
+      </div>
+
+      <div class="space-y-3">
+        <h3 id="modal-title" class="font-serif italic text-3xl font-bold text-emerald-950 dark:text-[#fefce8]">Project Title</h3>
+        <p id="modal-desc" class="text-sm text-emerald-900/85 dark:text-[#fefce8]/85 leading-relaxed"></p>
+      </div>
+
+      <div id="modal-team-box" class="hidden bg-emerald-50/90 dark:bg-[#0e2116]/90 rounded-xl p-3.5 border border-emerald-900/15 dark:border-yellow-400/20">
+        <span class="text-xs font-mono text-emerald-800/75 dark:text-yellow-300/75 block mb-1">Team Members:</span>
+        <p id="modal-team" class="text-xs sm:text-sm text-emerald-950 dark:text-[#fefce8] font-medium"></p>
+      </div>
+
+      <div>
+        <span class="text-xs font-mono text-emerald-800/75 dark:text-yellow-300/75 block mb-2">Key Highlights &amp; Architecture:</span>
+        <ul id="modal-highlights" class="space-y-1.5 text-xs sm:text-sm text-emerald-950/90 dark:text-[#fefce8]/90 bg-emerald-50/90 dark:bg-[#0e2116]/90 p-4 rounded-xl border border-emerald-900/15 dark:border-yellow-400/20 font-mono"></ul>
+      </div>
+
+      <div>
+        <span class="text-xs font-mono text-emerald-800/75 dark:text-yellow-300/75 block mb-2">Technologies Used:</span>
+        <div id="modal-tags" class="flex flex-wrap gap-1.5"></div>
+      </div>
+
+      <div class="pt-2 flex items-center justify-end gap-3">
+        <a id="modal-live-link" href="#" target="_blank" rel="noopener noreferrer"
+           class="hidden px-5 py-2.5 rounded-xl text-xs font-semibold bg-gradient-to-r from-emerald-600 via-yellow-500 to-blue-600 text-white hover:opacity-95 transition">
+          Open Live Project ↗
+        </a>
+        <button id="close-project-modal-btn" type="button"
+                class="px-5 py-2.5 rounded-xl text-xs font-semibold bg-emerald-100 dark:bg-[#163122] text-emerald-950 dark:text-[#fefce8] hover:bg-emerald-200 dark:hover:bg-[#1f442f] transition">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== JAVASCRIPT ENGINE ==================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. LIGHT / DARK THEME TOGGLE WITH PERSISTENCE
+      const themeToggleBtns = document.querySelectorAll('.theme-toggle-btn');
+
+      function isDarkMode() {
+        return document.documentElement.classList.contains('dark');
+      }
+
+      themeToggleBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (isDarkMode()) {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('eavan-portfolio-theme', 'light');
+            showToast('Switched to Golden-Hour Light Mode ☀️');
+          } else {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('eavan-portfolio-theme', 'dark');
+            showToast('Switched to Evening Bokeh Dark Mode 🌙');
+          }
+        });
+      });
+
+      // 2. MULTI-FALLBACK PROFILE PICTURE LOADER FOR BOTH LIGHT & DARK PORTRAITS
+      const driveFileId = '1cleZSEO__BJIqIkamXD87ZQY4KAZ69cG';
+      const photoLight = document.getElementById('eavan-photo-light');
+      const photoDark = document.getElementById('eavan-photo-dark');
+      const lightWrap = document.getElementById('portrait-light-wrap');
+      const darkWrap = document.getElementById('portrait-dark-wrap');
+      const fallbackEl = document.getElementById('avatar-fallback');
+
+      const driveUrls = [
+        `https://lh3.googleusercontent.com/d/${driveFileId}=s1000`,
+        `https://drive.google.com/thumbnail?id=${driveFileId}&sz=w1000`,
+        `https://drive.google.com/uc?export=view&id=${driveFileId}`
+      ];
+
+      function attachFallback(imgEl) {
+        if (!imgEl) return;
+        let attempt = 0;
+        imgEl.addEventListener('error', () => {
+          attempt++;
+          if (attempt < driveUrls.length) {
+            imgEl.src = driveUrls[attempt];
+          } else {
+            if (lightWrap) lightWrap.classList.add('hidden');
+            if (darkWrap) darkWrap.classList.add('hidden');
+            if (fallbackEl) fallbackEl.classList.remove('hidden');
+          }
+        });
+      }
+      attachFallback(photoLight);
+      attachFallback(photoDark);
+
+      // 3. TOAST NOTIFICATION HELPER
+      function showToast(message) {
+        const container = document.getElementById('toast-container');
+        if (!container) return;
+        const toast = document.createElement('div');
+        toast.className = 'pointer-events-auto px-4 py-3 rounded-xl bg-[#fefce8]/95 dark:bg-[#132a1d]/95 border border-yellow-500/50 text-emerald-950 dark:text-[#fefce8] text-xs sm:text-sm font-medium shadow-xl flex items-center gap-2.5 transition-all duration-300 transform translate-y-2 opacity-0';
+        toast.innerHTML = `<span class="w-2 h-2 rounded-full bg-yellow-400 shrink-0"></span><span>${message}</span>`;
+        container.appendChild(toast);
+        requestAnimationFrame(() => toast.classList.remove('translate-y-2', 'opacity-0'));
+        setTimeout(() => {
+          toast.classList.add('translate-y-2', 'opacity-0');
+          setTimeout(() => toast.remove(), 300);
+        }, 2800);
+      }
+
+      // 4. AMBIENT BOKEH CANVAS
+      const canvas = document.getElementById('network-canvas');
+      if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let orbs = [];
+
+        function resizeCanvas() {
+          const heroSection = document.getElementById('home');
+          if (!heroSection) return;
+          canvas.width = heroSection.offsetWidth;
+          canvas.height = heroSection.offsetHeight;
+          initOrbs();
+        }
+
+        function initOrbs() {
+          orbs = [];
+          const maxRadius = Math.max(canvas.width, canvas.height) * 0.62;
+          const count = 38;
+          const palette = [
+            '250, 204, 21',
+            '254, 240, 138',
+            '52, 211, 153',
+            '96, 165, 250'
+          ];
+          for (let i = 0; i < count; i++) {
+            orbs.push({
+              angle: Math.random() * Math.PI * 2,
+              orbitRadius: 45 + Math.random() * maxRadius,
+              angularSpeed: (0.001 + Math.random() * 0.002) * (i % 3 === 0 ? -1 : 1),
+              bokehSize: 8 + Math.random() * 24,
+              arcLength: 0.14 + Math.random() * 0.22,
+              rgb: palette[i % palette.length],
+              alpha: 0.12 + Math.random() * 0.2,
+              pulsePhase: Math.random() * Math.PI * 2
+            });
+          }
+        }
+
+        function animateNetwork() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          const dark = isDarkMode();
+          const time = Date.now() * 0.0018;
+          const cx = canvas.width * 0.5;
+          const cy = canvas.height * 0.5;
+
+          for (let i = 0; i < orbs.length; i++) {
+            const o = orbs[i];
+            o.angle += o.angularSpeed;
+            const shimmer = 0.7 + 0.3 * Math.sin(time + o.pulsePhase);
+            const currentAlpha = o.alpha * shimmer * (dark ? 1 : 0.75);
+
+            ctx.beginPath();
+            ctx.arc(cx, cy, o.orbitRadius, o.angle - o.arcLength, o.angle, o.angularSpeed < 0);
+            ctx.strokeStyle = `rgba(${o.rgb}, ${currentAlpha * 0.52})`;
+            ctx.lineWidth = o.bokehSize * 0.42;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+
+            const x = cx + Math.cos(o.angle) * o.orbitRadius;
+            const y = cy + Math.sin(o.angle) * o.orbitRadius;
+            const grad = ctx.createRadialGradient(x, y, 0, x, y, o.bokehSize);
+            grad.addColorStop(0, `rgba(${o.rgb}, ${currentAlpha})`);
+            grad.addColorStop(0.55, `rgba(${o.rgb}, ${currentAlpha * 0.4})`);
+            grad.addColorStop(1, `rgba(${o.rgb}, 0)`);
+
+            ctx.beginPath();
+            ctx.arc(x, y, o.bokehSize, 0, Math.PI * 2);
+            ctx.fillStyle = grad;
+            ctx.fill();
+          }
+
+          requestAnimationFrame(animateNetwork);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        animateNetwork();
+      }
+
+      // 5. SLOW-REVEAL LYRIC QUOTE ANIMATION & TYPEWRITER
+      const lyricWords = document.querySelectorAll('#animated-lyric-container .lyric-word');
+      const replayLyricBtn = document.getElementById('replay-lyric-btn');
+      const replayLyricIcon = document.getElementById('replay-lyric-icon');
+      let lyricTimers = [];
+
+      function playLyricAnimation() {
+        lyricTimers.forEach(t => clearTimeout(t));
+        lyricTimers = [];
+        lyricWords.forEach(word => word.classList.remove('revealed'));
+
+        lyricWords.forEach((word, index) => {
+          const linePause = index >= 8 ? 850 : 0;
+          const timer = setTimeout(() => {
+            word.classList.add('revealed');
+          }, 320 + index * 210 + linePause);
+          lyricTimers.push(timer);
+        });
+      }
+
+      playLyricAnimation();
+
+      if (replayLyricBtn) {
+        replayLyricBtn.addEventListener('click', () => {
+          if (replayLyricIcon) {
+            replayLyricIcon.style.transform = 'rotate(-360deg)';
+            setTimeout(() => {
+              replayLyricIcon.style.transition = 'none';
+              replayLyricIcon.style.transform = 'rotate(0deg)';
+              requestAnimationFrame(() => {
+                replayLyricIcon.style.transition = 'transform 0.5s ease';
+              });
+            }, 500);
+          }
+          playLyricAnimation();
+        });
+      }
+
+      const roles = [
+        '3rd Year BSIT Student',
+        'Aspiring Software Developer',
+        'Aspiring Network Engineer',
+        'Web & Cybersecurity Enthusiast'
+      ];
+      const roleEl = document.getElementById('typewriter-role');
+      let roleIdx = 0;
+      let charIdx = roles[0].length;
+      let isDeleting = true;
+
+      function tickTypewriter() {
+        if (!roleEl) return;
+        const currentWord = roles[roleIdx];
+        if (isDeleting) {
+          charIdx--;
+          roleEl.textContent = currentWord.substring(0, charIdx);
+        } else {
+          charIdx++;
+          roleEl.textContent = currentWord.substring(0, charIdx);
+        }
+
+        let delay = isDeleting ? 45 : 85;
+        if (!isDeleting && charIdx === currentWord.length) {
+          delay = 1800;
+          isDeleting = true;
+        } else if (isDeleting && charIdx === 0) {
+          isDeleting = false;
+          roleIdx = (roleIdx + 1) % roles.length;
+          delay = 350;
+        }
+        setTimeout(tickTypewriter, delay);
+      }
+      if (roleEl) {
+        setTimeout(tickTypewriter, 1600);
+      }
+
+      // 6. CURSOR SPOTLIGHT & 3D TILT CARDS
+      document.querySelectorAll('.spotlight-card').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+
+          if (card.classList.contains('tilt-card') && window.innerWidth >= 768) {
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -4;
+            const rotateY = ((x - centerX) / centerX) * 4;
+            card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+          }
+        });
+
+        card.addEventListener('mouseleave', () => {
+          if (card.classList.contains('tilt-card')) {
+            card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+          }
+        });
+      });
+
+      // 7. SCROLL REVEAL, SCROLL PROGRESS & SEPARATED PILL TAB ACTIVE TRACKING
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, idx) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('is-visible');
+            }, (idx % 4) * 70);
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+      const scrollProgress = document.getElementById('scroll-progress');
+      const sections = document.querySelectorAll('section[id]');
+      const pillTabs = document.querySelectorAll('.nav-pill-tab');
+
+      function updateActiveTab(targetId) {
+        pillTabs.forEach(tab => {
+          tab.classList.toggle('active', tab.getAttribute('data-section') === targetId);
+        });
+      }
+
+      pillTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const sec = tab.getAttribute('data-section');
+          if (sec) updateActiveTab(sec);
+        });
+      });
+
+      window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        if (scrollProgress) scrollProgress.style.width = `${pct}%`;
+
+        let currentId = 'about';
+        sections.forEach(sec => {
+          const id = sec.getAttribute('id');
+          if (id === 'home') return;
+          if (scrollTop + 170 >= sec.offsetTop) {
+            currentId = id;
+          }
+        });
+        updateActiveTab(currentId);
+      });
+
+      // 8. MOBILE NAVIGATION DRAWER
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const iconOpen = document.getElementById('menu-icon-open');
+      const iconClose = document.getElementById('menu-icon-close');
+
+      if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', () => {
+          const isHidden = mobileMenu.classList.contains('hidden');
+          mobileMenu.classList.toggle('hidden', !isHidden);
+          iconOpen.classList.toggle('hidden', isHidden);
+          iconClose.classList.toggle('hidden', !isHidden);
+        });
+      }
+
+      document.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          iconOpen.classList.remove('hidden');
+          iconClose.classList.add('hidden');
+        });
+      });
+
+      // 9. SKILLS & CERTIFICATES FILTERS
+      const skillFilterBtns = document.querySelectorAll('.skill-filter-btn');
+      const skillCards = document.querySelectorAll('.skill-card');
+
+      skillFilterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const filter = btn.getAttribute('data-filter');
+          skillFilterBtns.forEach(b => {
+            b.className = 'skill-filter-btn px-3.5 py-2 rounded-xl text-xs font-mono font-medium bg-[#fefce8]/90 dark:bg-[#132a1d] text-emerald-950 dark:text-[#fefce8] border border-emerald-900/20 dark:border-yellow-400/25 hover:border-yellow-400 transition';
+          });
+          btn.className = 'skill-filter-btn px-3.5 py-2 rounded-xl text-xs font-mono font-semibold bg-gradient-to-r from-emerald-600 via-yellow-500 to-blue-600 text-white shadow-md shadow-emerald-900/20 transition';
+
+          skillCards.forEach(card => {
+            const match = filter === 'all' || card.getAttribute('data-category') === filter;
+            card.classList.toggle('hidden', !match);
+          });
+        });
+      });
+
+      const certFilterBtns = document.querySelectorAll('.cert-filter-btn');
+      const certCards = document.querySelectorAll('.cert-card');
+
+      certFilterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const filter = btn.getAttribute('data-cert-filter');
+          certFilterBtns.forEach(b => {
+            b.className = 'cert-filter-btn px-3.5 py-2 rounded-xl text-xs font-mono font-medium bg-[#fefce8]/90 dark:bg-[#132a1d] text-emerald-950 dark:text-[#fefce8] border border-emerald-900/20 dark:border-yellow-400/25 hover:border-yellow-400 transition';
+          });
+          btn.className = 'cert-filter-btn px-3.5 py-2 rounded-xl text-xs font-mono font-semibold bg-gradient-to-r from-emerald-600 via-yellow-500 to-blue-600 text-white transition';
+
+          certCards.forEach(card => {
+            const match = filter === 'all' || card.getAttribute('data-cert-org') === filter;
+            card.classList.toggle('hidden', !match);
+          });
+        });
+      });
+
+      // 10. PROJECT DETAILS MODAL
+      const projectData = {
+        'brewbound': {
+          category: 'FEATURED WEB APPLICATION',
+          title: 'Brewbound',
+          desc: 'A Calamba City coffee shop & venue navigation web application in selected Barangays (Brgy. 1 - 7), helping residents and visitors navigate local cafes, venues, and directories effortlessly.',
+          team: 'John Rein M. Pamplona, Elvis Joshua L. Lucio, Eavan C. Firme',
+          highlights: [
+            '• Built responsive UI with React, Vite & Tailwind CSS',
+            '• Interactive venue & coffee shop directory for Brgy. 1–7 in Calamba City',
+            '• Version-controlled on GitHub and deployed live on Vercel'
+          ],
+          tags: ['React & Vite', 'Node.js', 'Tailwind CSS', 'JavaScript', 'GitHub', 'Vercel'],
+          liveUrl: 'https://brewbound-final.vercel.app/'
+        },
+        'kc7-cyber': {
+          category: 'CYBERSECURITY & THREAT HUNTING',
+          title: 'KC7 Cyber Ransomware Investigation',
+          desc: 'Simulated enterprise incident response and ransomware threat hunting investigation analyzing phishing entry points, malicious payloads, lateral movement, and command-and-control (C2) traffic.',
+          team: null,
+          highlights: [
+            '• Investigated multi-stage ransomware intrusion logs using KQL',
+            '• Correlated email, endpoint, and DNS telemetry to isolate compromised hosts',
+            '• Documented Indicators of Compromise (IOCs) and containment recommendations'
+          ],
+          tags: ['KC7 Cyber', 'KQL Log Analysis', 'Threat Hunting', 'IOC Tracking', 'Incident Response'],
+          liveUrl: null
+        }
+      };
+
+      const projectModal = document.getElementById('project-modal');
+      const projectModalBox = document.getElementById('project-modal-box');
+
+      function openProjectModal(key) {
+        const data = projectData[key];
+        if (!data) return;
+
+        document.getElementById('modal-category').textContent = data.category;
+        document.getElementById('modal-title').textContent = data.title;
+        document.getElementById('modal-desc').textContent = data.desc;
+
+        const teamBox = document.getElementById('modal-team-box');
+        if (data.team) {
+          document.getElementById('modal-team').textContent = data.team;
+          teamBox.classList.remove('hidden');
+        } else {
+          teamBox.classList.add('hidden');
+        }
+
+        document.getElementById('modal-highlights').innerHTML = data.highlights.map(item => `<li>${item}</li>`).join('');
+        document.getElementById('modal-tags').innerHTML = data.tags.map(tag => `<span class="px-2.5 py-1 rounded-md text-xs font-mono bg-yellow-400/20 text-emerald-950 dark:text-yellow-200 border border-yellow-500/35">${tag}</span>`).join('');
+
+        const liveLink = document.getElementById('modal-live-link');
+        if (data.liveUrl) {
+          liveLink.href = data.liveUrl;
+          liveLink.classList.remove('hidden');
+        } else {
+          liveLink.classList.add('hidden');
+        }
+
+        projectModal.classList.remove('hidden');
+        projectModal.classList.add('flex');
+        requestAnimationFrame(() => {
+          projectModalBox.classList.remove('scale-95', 'opacity-0');
+          projectModalBox.classList.add('scale-100', 'opacity-100');
+        });
+      }
+
+      function closeProjectModal() {
+        projectModalBox.classList.remove('scale-100', 'opacity-100');
+        projectModalBox.classList.add('scale-95', 'opacity-0');
+        setTimeout(() => {
+          projectModal.classList.add('hidden');
+          projectModal.classList.remove('flex');
+        }, 180);
+      }
+
+      document.querySelectorAll('.open-project-modal').forEach(btn => {
+        btn.addEventListener('click', () => openProjectModal(btn.getAttribute('data-project')));
+      });
+
+      document.getElementById('close-project-modal').addEventListener('click', closeProjectModal);
+      document.getElementById('close-project-modal-btn').addEventListener('click', closeProjectModal);
+      projectModal.addEventListener('click', (e) => {
+        if (e.target === projectModal) closeProjectModal();
+      });
+
+      // 11. ONE-CLICK COPY & CONTACT FORM
+      document.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const text = btn.getAttribute('data-copy');
+          const temp = document.createElement('input');
+          temp.value = text;
+          document.body.appendChild(temp);
+          temp.select();
+          try {
+            document.execCommand('copy');
+            showToast(`Copied "${text}" to clipboard!`);
+          } catch (err) {
+            showToast(text);
+          }
+          document.body.removeChild(temp);
+        });
+      });
+
+      const contactForm = document.getElementById('contact-form');
+      if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const name = document.getElementById('sender-name').value.trim();
+          const email = document.getElementById('sender-email').value.trim();
+          const subject = document.getElementById('message-subject').value.trim();
+          const message = document.getElementById('message-body').value.trim();
+
+          const mailtoSubject = encodeURIComponent(`[Portfolio] ${subject}`);
+          const mailtoBody = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+          showToast('Launching email client to send message...');
+          window.location.href = `mailto:vanderitas7@gmail.com?subject=${mailtoSubject}&body=${mailtoBody}`;
+        });
+      }
+    });
+  </script>
+</body>
+</html>
