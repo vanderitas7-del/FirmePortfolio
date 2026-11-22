@@ -166,19 +166,19 @@
     .name-color-shift {
       background: linear-gradient(
         115deg,
-        #14532d 0%,
-        #166534 22%,
-        #ca8a04 46%,
-        #1d4ed8 70%,
-        #15803d 88%,
-        #14532d 100%
+        #431407 0%,
+        #9a3412 22%,
+        #ea580c 44%,
+        #d97706 66%,
+        #b45309 84%,
+        #431407 100%
       );
       background-size: 300% 300%;
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: heroNameShift 7s ease-in-out infinite;
-      filter: drop-shadow(0 2px 14px rgba(234, 179, 8, 0.16));
+      filter: drop-shadow(0 2px 14px rgba(217, 119, 6, 0.24));
     }
 
     html.dark .name-color-shift {
@@ -375,6 +375,49 @@
     @keyframes lyricWordShimmer {
       0% { background-position: 0% center; }
       100% { background-position: 220% center; }
+    }
+
+    /* Autumn Theme Quote Highlight & Card Glow */
+    html:not(.dark) .lyric-highlight-gold {
+      background: linear-gradient(90deg, #7c2d12 0%, #c2410c 32%, #f59e0b 50%, #ea580c 68%, #7c2d12 100%);
+      background-size: 220% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: lyricWordShimmer 6.2s linear infinite;
+    }
+
+    html:not(.dark) .lyric-highlight-blue {
+      background: linear-gradient(90deg, #9a3412 0%, #ea580c 32%, #fbbf24 50%, #d97706 68%, #9a3412 100%);
+      background-size: 220% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: lyricWordShimmer 6.8s linear infinite;
+    }
+
+    html:not(.dark) .lyric-quote-card {
+      animation: autumnQuoteBreathe 9s ease-in-out infinite;
+    }
+
+    @keyframes autumnQuoteBreathe {
+      0%, 100% {
+        box-shadow: 0 12px 32px -10px rgba(194, 65, 12, 0.18), inset 0 0 18px rgba(217, 119, 6, 0.06);
+      }
+      50% {
+        box-shadow: 0 18px 42px -10px rgba(234, 88, 12, 0.32), inset 0 0 28px rgba(245, 158, 11, 0.14);
+      }
+    }
+
+    html:not(.dark) .lyric-shimmer-sweep {
+      background: linear-gradient(
+        115deg,
+        transparent 20%,
+        rgba(217, 119, 6, 0.12) 45%,
+        rgba(251, 191, 36, 0.22) 50%,
+        rgba(194, 65, 12, 0.12) 55%,
+        transparent 80%
+      );
     }
 
     /* Blinking Cursor */
@@ -653,12 +696,8 @@
   <!-- Toast Notification Container -->
   <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-  <!-- Hidden HTML5 Audio Element for Ben&Ben - Lifetime (Reimagined) -->
-  <audio id="bg-music-audio" preload="metadata" loop>
-    <source src="Ben&Ben - Lifetime (Reimagined) (Lyrics).mp3" type="audio/mpeg" />
-    <source src="Ben%26Ben%20-%20Lifetime%20(Reimagined)%20(Lyrics).mp3" type="audio/mpeg" />
-    <source src="assets/Ben&Ben - Lifetime (Reimagined) (Lyrics).mp3" type="audio/mpeg" />
-  </audio>
+  <!-- Hidden HTML5 Audio Element (Switches dynamically between Forest & Autumn tracks) -->
+  <audio id="bg-music-audio" preload="metadata" loop></audio>
 
   <!-- ==================== LOWER-LEFT COLLAPSIBLE SIDEBAR MUSIC PLAYER ==================== -->
   <aside id="music-sidebar" aria-label="Lower-Left Sidebar Music Player" class="music-sidebar-wrapper">
@@ -682,7 +721,7 @@
               <span class="sidebar-eq eq-bar eq-paused bg-orange-500 dark:bg-yellow-300"></span>
             </span>
           </div>
-          <p class="text-xs sm:text-sm font-bold truncate text-[#2c1810] dark:text-[#fefce8]" title="Ben&amp;Ben - Lifetime (Reimagined)">
+          <p id="sidebar-track-title" class="text-xs sm:text-sm font-bold truncate text-[#2c1810] dark:text-[#fefce8]" title="Ben&amp;Ben - Lifetime (Reimagined)">
             Lifetime (Reimagined)
           </p>
           <p class="text-[11px] font-mono text-[#5c3a21] dark:text-yellow-200/75 truncate">
@@ -949,7 +988,7 @@
               <div class="relative z-10 flex flex-wrap items-center justify-between gap-2 mb-3.5">
                 <span class="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-wider text-amber-900 dark:text-yellow-300">
                   <svg class="w-3.5 h-3.5 text-orange-600 dark:text-yellow-500 animate-pulse" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
-                  Ben&amp;Ben • Lifetime (Reimagined)
+                  <span id="quote-song-title">Ben&amp;Ben • Lifetime (Reimagined)</span>
                 </span>
 
                 <div class="flex items-center gap-2">
@@ -1745,6 +1784,153 @@
     document.addEventListener('DOMContentLoaded', () => {
       // 1. AUTUMN (LIGHT) & FOREST (DARK) THEME TOGGLE WITH PERSISTENCE
       const themeToggleBtns = document.querySelectorAll('.theme-toggle-btn');
+      const quoteSongTitleEl = document.getElementById('quote-song-title');
+      const animatedLyricContainer = document.getElementById('animated-lyric-container');
+      const sidebarTrackTitleEl = document.getElementById('sidebar-track-title');
+      const quoteSyncBtn = document.getElementById('quote-music-sync-btn');
+      const audioEl = document.getElementById('bg-music-audio');
+
+      const themeQuotes = {
+        forest: {
+          title: 'Ben&amp;Ben • Lifetime (Reimagined)',
+          trackName: 'Lifetime (Reimagined)',
+          fullTrackTitle: 'Ben&Ben - Lifetime (Reimagined)',
+          syncStart: 112.0, // 1:52
+          syncEnd: 120.0,   // 2:00
+          syncLine1Duration: 3.5, // 1:52.0 -> 1:55.5
+          audioSources: [
+            'Ben&Ben - Lifetime (Reimagined) (Lyrics).mp3',
+            'Ben%26Ben%20-%20Lifetime%20(Reimagined)%20(Lyrics).mp3',
+            'assets/Ben&Ben - Lifetime (Reimagined) (Lyrics).mp3',
+            'assets/Ben%26Ben%20-%20Lifetime%20(Reimagined)%20(Lyrics).mp3'
+          ],
+          line1Count: 8,
+          html: `
+            <p>
+              <span class="lyric-word">“Is</span>
+              <span class="lyric-word">it</span>
+              <span class="lyric-word">even</span>
+              <span class="lyric-word">worth</span>
+              <span class="lyric-word">it</span>
+              <span class="lyric-word">to</span>
+              <span class="lyric-word font-serif italic font-bold text-2xl sm:text-[26px] lyric-highlight-gold">reminisce</span><span class="lyric-word">?</span>
+            </p>
+            <p>
+              <span class="lyric-word">How</span>
+              <span class="lyric-word">do</span>
+              <span class="lyric-word">you</span>
+              <span class="lyric-word font-serif italic font-bold text-2xl sm:text-[26px] lyric-highlight-gold">grieve</span>
+              <span class="lyric-word">for</span>
+              <span class="lyric-word">a</span>
+              <span class="lyric-word">love</span>
+              <span class="lyric-word">that</span>
+              <span class="lyric-word font-serif italic font-bold text-2xl sm:text-[26px] lyric-highlight-blue">did</span>
+              <span class="lyric-word font-serif italic font-bold text-2xl sm:text-[26px] lyric-highlight-blue">not</span>
+              <span class="lyric-word font-serif italic font-bold text-2xl sm:text-[26px] lyric-highlight-blue">even</span>
+              <span class="lyric-word font-serif italic font-bold text-2xl sm:text-[26px] lyric-highlight-blue">exist</span><span class="lyric-word">?”</span>
+            </p>
+          `
+        },
+        autumn: {
+          title: 'Ben&amp;Ben • Autumn (Reimagined)',
+          trackName: 'Autumn (Reimagined)',
+          fullTrackTitle: 'Ben&Ben - Autumn (Reimagined)',
+          syncStart: 37.0, // 0:37
+          syncEnd: 44.0,   // 0:44
+          syncLine1Duration: 3.3, // 0:37.0 -> 0:40.3 ("Why can't we be together,")
+          audioSources: [
+            'Ben&Ben - Autumn (Reimagined).mp3',
+            'Ben%26Ben%20-%20Autumn%20(Reimagined).mp3',
+            'assets/Ben&Ben - Autumn (Reimagined).mp3',
+            'assets/Ben%26Ben%20-%20Autumn%20(Reimagined).mp3'
+          ],
+          line1Count: 7,
+          html: `
+            <p>
+              <span class="lyric-word">“Why</span>
+              <span class="lyric-word">can't</span>
+              <span class="lyric-word">we</span>
+              <span class="lyric-word">be</span>
+              <span class="lyric-word font-serif italic font-bold text-2xl sm:text-[26px] lyric-highlight-gold">together</span><span class="lyric-word">,</span>
+              <span class="lyric-word font-serif italic font-bold text-2xl sm:text-[26px] lyric-highlight-gold">baby</span><span class="lyric-word">?</span>
+            </p>
+            <p>
+              <span class="lyric-word">Why</span>
+              <span class="lyric-word">does</span>
+              <span class="lyric-word">it</span>
+              <span class="lyric-word">take</span>
+              <span class="lyric-word font-serif italic font-bold text-2xl sm:text-[26px] lyric-highlight-blue">so</span>
+              <span class="lyric-word font-serif italic font-bold text-2xl sm:text-[26px] lyric-highlight-blue">long</span><span class="lyric-word">?”</span>
+            </p>
+          `
+        }
+      };
+
+      let currentLine1Count = 8;
+      let activeBridgeStart = themeQuotes.forest.syncStart;
+      let activeBridgeEnd = themeQuotes.forest.syncEnd;
+      let activeLine1Duration = themeQuotes.forest.syncLine1Duration;
+      let activeAudioSources = themeQuotes.forest.audioSources;
+      let audioSourceIdx = 0;
+
+      function loadThemeAudioTrack(sources, autoResume = false) {
+        if (!audioEl || !sources || !sources.length) return;
+        activeAudioSources = sources;
+        audioSourceIdx = 0;
+        audioEl.src = activeAudioSources[0];
+        audioEl.load();
+
+        if (autoResume) {
+          audioEl.play().then(() => {
+            if (typeof syncPlayerUI === 'function') syncPlayerUI(true);
+          }).catch(() => {
+            if (typeof syncPlayerUI === 'function') syncPlayerUI(false);
+          });
+        } else if (typeof syncPlayerUI === 'function') {
+          syncPlayerUI(false);
+        }
+      }
+
+      if (audioEl) {
+        audioEl.addEventListener('error', () => {
+          if (audioSourceIdx + 1 < activeAudioSources.length) {
+            const wasPlaying = !audioEl.paused;
+            audioSourceIdx++;
+            audioEl.src = activeAudioSources[audioSourceIdx];
+            audioEl.load();
+            if (wasPlaying) {
+              audioEl.play().catch(() => {});
+            }
+          }
+        });
+      }
+
+      function applyThemeQuote(shouldAnimate = true, autoResumeAudio = false) {
+        const config = isDarkMode() ? themeQuotes.forest : themeQuotes.autumn;
+        activeBridgeStart = config.syncStart;
+        activeBridgeEnd = config.syncEnd;
+        activeLine1Duration = config.syncLine1Duration;
+        if (quoteSongTitleEl) {
+          quoteSongTitleEl.innerHTML = config.title;
+        }
+        if (sidebarTrackTitleEl) {
+          sidebarTrackTitleEl.textContent = config.trackName;
+          sidebarTrackTitleEl.title = config.fullTrackTitle;
+        }
+        if (quoteSyncBtn) {
+          quoteSyncBtn.title = `Play or Pause ${config.fullTrackTitle}`;
+        }
+        loadThemeAudioTrack(config.audioSources, autoResumeAudio);
+
+        if (animatedLyricContainer) {
+          animatedLyricContainer.innerHTML = config.html;
+          lyricWords = animatedLyricContainer.querySelectorAll('.lyric-word');
+          currentLine1Count = config.line1Count;
+          if (shouldAnimate && typeof playLyricAnimation === 'function') {
+            playLyricAnimation();
+          }
+        }
+      }
 
       function isDarkMode() {
         return document.documentElement.classList.contains('dark');
@@ -1752,14 +1938,17 @@
 
       themeToggleBtns.forEach(btn => {
         btn.addEventListener('click', () => {
+          const wasPlaying = audioEl ? !audioEl.paused : false;
           if (isDarkMode()) {
             document.documentElement.classList.remove('dark');
             localStorage.setItem('eavan-portfolio-theme', 'light');
-            showToast('Switched to Autumn Theme 🍂');
+            applyThemeQuote(true, wasPlaying);
+            showToast('Switched to Autumn Theme • Playing Autumn (Reimagined) 🍂');
           } else {
             document.documentElement.classList.add('dark');
             localStorage.setItem('eavan-portfolio-theme', 'dark');
-            showToast('Switched to Forest Theme 🌲');
+            applyThemeQuote(true, wasPlaying);
+            showToast('Switched to Forest Theme • Playing Lifetime (Reimagined) 🌲');
           }
         });
       });
@@ -1790,13 +1979,11 @@
         });
       }
 
-      // 3. LOWER-LEFT SIDEBAR MUSIC PLAYER CONTROLLER (Ben&Ben - Lifetime (Reimagined))
+      // 3. LOWER-LEFT SIDEBAR MUSIC PLAYER CONTROLLER (Theme-Synced Audio)
       const musicSidebar = document.getElementById('music-sidebar');
       const musicSidebarToggle = document.getElementById('music-sidebar-toggle');
       const musicTabChevron = document.getElementById('music-tab-chevron');
-      const audioEl = document.getElementById('bg-music-audio');
       const playPauseBtn = document.getElementById('music-play-pause-btn');
-      const quoteSyncBtn = document.getElementById('quote-music-sync-btn');
       const quoteMusicLabel = document.getElementById('quote-music-label');
       const iconPlay = document.getElementById('sidebar-icon-play');
       const iconPause = document.getElementById('sidebar-icon-pause');
@@ -1837,7 +2024,10 @@
           audioEl.play().then(() => {
             syncPlayerUI(true);
           }).catch(() => {
-            showToast('Ensure "Ben&Ben - Lifetime (Reimagined) (Lyrics).mp3" is placed in the site folder.');
+            const expectedFile = isDarkMode()
+              ? 'Ben&Ben - Lifetime (Reimagined) (Lyrics).mp3'
+              : 'Ben&Ben - Autumn (Reimagined).mp3';
+            showToast(`Ensure "${expectedFile}" is placed in the site folder.`);
           });
         } else {
           audioEl.pause();
@@ -2021,15 +2211,11 @@
       }
 
       // 6. SLOW-REVEAL LYRIC QUOTE ANIMATION & TYPEWRITER
-      const lyricWords = document.querySelectorAll('#animated-lyric-container .lyric-word');
+      let lyricWords = document.querySelectorAll('#animated-lyric-container .lyric-word');
       const replayLyricBtn = document.getElementById('replay-lyric-btn');
       const replayLyricIcon = document.getElementById('replay-lyric-icon');
       let lyricTimers = [];
       let syncRafId = null;
-
-      // Exact bridge window: 1:52 (112.0s) to 2:00 (120.0s)
-      const BRIDGE_START = 112.0;
-      const BRIDGE_END = 120.0;
       let autoBridgeActive = false;
 
       function stopSyncedQuoteLoop() {
@@ -2042,12 +2228,12 @@
 
       function renderBridgeProgress(currentTime) {
         const totalWords = lyricWords.length;
-        const line1Count = 8; // “Is it even worth it to reminisce?
-        const line2Count = totalWords - line1Count; // How do you grieve for a love that did not even exist?”
-        const line1Duration = 3.6; // 1:52.0 -> 1:55.6
-        const line2Duration = (BRIDGE_END - BRIDGE_START) - line1Duration; // 1:55.6 -> 2:00.0
+        const line1Count = currentLine1Count;
+        const line2Count = totalWords - line1Count;
+        const line1Duration = activeLine1Duration;
+        const line2Duration = (activeBridgeEnd - activeBridgeStart) - line1Duration;
 
-        const elapsed = currentTime - BRIDGE_START;
+        const elapsed = currentTime - activeBridgeStart;
         let targetRevealed = 0;
 
         if (elapsed <= line1Duration) {
@@ -2079,10 +2265,10 @@
         const tickAutoSync = () => {
           const t = audioEl.currentTime;
 
-          if (t >= BRIDGE_START && t <= BRIDGE_END) {
+          if (t >= activeBridgeStart && t <= activeBridgeEnd) {
             renderBridgeProgress(t);
           } else {
-            if (t > BRIDGE_END) {
+            if (t > activeBridgeEnd) {
               lyricWords.forEach(word => word.classList.add('revealed'));
             }
             stopSyncedQuoteLoop();
@@ -2103,7 +2289,7 @@
       if (audioEl) {
         audioEl.addEventListener('timeupdate', () => {
           const t = audioEl.currentTime;
-          if (!audioEl.paused && t >= BRIDGE_START && t <= BRIDGE_END && !autoBridgeActive) {
+          if (!audioEl.paused && t >= activeBridgeStart && t <= activeBridgeEnd && !autoBridgeActive) {
             startAutoBridgeSync();
           }
         });
@@ -2116,7 +2302,7 @@
         lyricWords.forEach(word => word.classList.remove('revealed'));
 
         lyricWords.forEach((word, index) => {
-          const linePause = index >= 8 ? 850 : 0;
+          const linePause = index >= currentLine1Count ? 850 : 0;
           const timer = setTimeout(() => {
             word.classList.add('revealed');
           }, 320 + index * 210 + linePause);
@@ -2137,7 +2323,7 @@
 
         const startBridgePlayback = () => {
           try {
-            audioEl.currentTime = BRIDGE_START;
+            audioEl.currentTime = activeBridgeStart;
           } catch (e) {}
 
           audioEl.play().then(() => {
@@ -2147,9 +2333,9 @@
             const updateSyncedWords = () => {
               const t = audioEl.currentTime;
 
-              if (t >= BRIDGE_START && t <= BRIDGE_END) {
+              if (t >= activeBridgeStart && t <= activeBridgeEnd) {
                 renderBridgeProgress(t);
-              } else if (t > BRIDGE_END) {
+              } else if (t > activeBridgeEnd) {
                 lyricWords.forEach(word => word.classList.add('revealed'));
                 stopSyncedQuoteLoop();
                 return;
@@ -2166,7 +2352,7 @@
           }).catch(() => {
             // Fallback to standalone 8-second reveal if MP3 cannot autoplay or isn't present
             lyricWords.forEach((word, index) => {
-              const linePause = index >= 8 ? 500 : 0;
+              const linePause = index >= currentLine1Count ? 500 : 0;
               const timer = setTimeout(() => {
                 word.classList.add('revealed');
               }, 150 + index * 340 + linePause);
@@ -2183,7 +2369,7 @@
         }
       }
 
-      playLyricAnimation();
+      applyThemeQuote(true);
 
       if (replayLyricBtn) {
         replayLyricBtn.addEventListener('click', () => {
